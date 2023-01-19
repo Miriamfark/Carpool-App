@@ -5,4 +5,9 @@ class KidsController < ApplicationController
         render json: kids
     end
 
+    def show 
+        kid = Kid.find(params[:id])
+        render json: kid
+    end
+
 end
