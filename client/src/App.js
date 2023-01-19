@@ -6,22 +6,22 @@ function App() {
 
   const [cars, setCars] = useState([])
 
-  useEffect(() => {
-    fetch('http://localhost:4000/cars')
-    .then((r) => r.json())
-    .then((data) => setCars(data))
-  })
+  // useEffect(() => {
+  //   fetch('http://localhost:4000/cars')
+  //   .then((r) => r.json())
+  //   .then((data) => setCars(data))
+  // })
 
-  const mappedCars = cars.map((car) => {
-    return <li key={car.id}>{car.user}</li>
-  })
+  // const mappedCars = cars.map((car) => {
+  //   return <li key={car.id}>{car.user}</li>
+  // })
 
   return (
     <div className="App">
       <NavBar />
      <div>
       <ul>
-        {mappedCars}
+        {/* {mappedCars} */}
       </ul>
      </div>
     </div>
