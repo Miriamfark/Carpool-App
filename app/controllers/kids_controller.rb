@@ -36,7 +36,7 @@ class KidsController < ApplicationController
     end
 
     def find_user
-        User.find(sessions[:user_id])
+        User.find(session[:user_id])
     end
 
     def find_kid 
