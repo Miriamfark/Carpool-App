@@ -19,6 +19,25 @@ export const postCar = createAsyncThunk('cars/postCar', async (carData) => {
     return data
 })
 
+export const updateSeatsAvailable = createAsyncThunk('cars/updateSeatsAvailable', async (carId) => {
+    const updatedCar = await fetch(`/cars/${carId}/seats`, {
+        method: "PATCH",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(carId)
+    })
+    const data = await updatedCar.json()
+    return data
+})
+
+export const filterCars = createAsyncThunk('cars/filterCars', async (query) => {
+    const cars = await fetch(`/search/${query}`)
+    const data = await cars.json()
+    console.log(data)
+    return data
+})
+
 export const carsSlice = createSlice({
     name: "cars",
     initialState: {
@@ -52,6 +71,12 @@ export const carsSlice = createSlice({
         [fetchCars.pending]: (state) => {
             state.isFetching = true;
           }, 
+        // [searchCars.fulfilled]: (state, { payload }) => {
+        //     state.cars = payload
+        //     state.isFetching = false;
+        //     state.isSuccess = true;
+        //     return state;
+        // },
     //     [signupUser.fulfilled]: (state, { payload }) => {
     //       state.isFetching = false;
     //       state.isSuccess = true;
@@ -96,6 +121,17 @@ export const carsSlice = createSlice({
         state.isSuccess = true;
         return state;
         },
+    [updateSeatsAvailable.fulfilled]: (state, { payload }) => {
+            let patchedCar = state.cars.filter((car) => car.id == payload.id)[0]
+            patchedCar = {...patchedCar, seats_available: payload.seats_available}
+            state.cars = state.cars.map((c) => {
+                return c.id !== patchedCar.id ? c : patchedCar
+            })
+            state.isFetching = false;
+            state.isSuccess = true;
+            console.log("update seats", payload)
+            return state;
+            },
     // [removeKid.fulfilled]: (state, { payload }) => {
     //     const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
     //     state.user.kids = filteredKids
@@ -124,36 +160,6 @@ export const carsSlice = createSlice({
 //       [fetchUser.pending]: (state) => {
 //           state.isFetching = true;
 //       },
-    
-      
-    
-//         [updateDonation.fulfilled]: (state, { payload }) => {
-//             let patchedDonation = state.user.donations.filter((donation) => donation.id == payload.id)[0]
-//             patchedDonation = {...patchedDonation, amount: payload.amount}
-//             state.user = {...state.user, donations: state.user.donations.map((d) => {
-//                 return d.id !== patchedDonation.id ? d : patchedDonation
-//             })}
-//             state.isFetching = false;
-//             state.isSuccess = true;
-//             console.log("in the reducer", payload)
-//             return state;
-//             },
-//         [updateSumDonations.fulfilled]: (state, { payload }) => {
-//             let updatedRecipient = state.user.recipients.filter((recipient) => {
-//                 return recipient.id === payload.id
-//             })[0]
-//             updatedRecipient = {...updatedRecipient, sum_donations: payload.sum_donations}
-//             state.user = {...state.user, recipients: state.user.recipients.map((r) => {
-//                 return r.id !== updatedRecipient.id ? r : updatedRecipient
-//             })}
-//             state.isFetching = false;
-//             state.isSuccess = true;
-//             state.isError = false;
-//             console.log("payload:", payload)
-//             console.log("updatedRecipient:", updatedRecipient)
-//             return state;
-//         },
-//     },
-//   })
+
   
   export const { clearState } = carsSlice.actions;

@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { userSelector, clearState, loginUser } from '../../redux/usersSlice';
 
@@ -6,6 +7,7 @@ import { userSelector, clearState, loginUser } from '../../redux/usersSlice';
 const LoginForm = () => {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
@@ -20,6 +22,7 @@ const LoginForm = () => {
         dispatch(loginUser(user))
         setName("")
         setPassword("")
+        navigate('/me')
     }
 
   return (

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from "react-redux";
 import { signupUser } from '../../redux/usersSlice';
 function SignupForm() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate
 
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
@@ -17,6 +19,7 @@ function SignupForm() {
             passwordConfirmation
         }
         dispatch(signupUser(user))
+        navigate('/me')
     }
 
   return (

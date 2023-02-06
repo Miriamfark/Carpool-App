@@ -26,11 +26,9 @@ function App() {
   return (
     <div className='App'>
       <NavBar /> 
-      <div>
-       <h1>Welcome {user.name}</h1>
-     </div>
       <Routes>
-        <Route path="/cars" element={<Cars />}/>
+        <Route path="/cars" element={<Cars />} />
+        <Route path="/search?/:searchTerm" element={<Cars/>} />
         <Route path="/kids" element={<KidsList />}>
           <Route path=":kidId" element={<EditKid kids={user.kids}/>} />
         </Route>

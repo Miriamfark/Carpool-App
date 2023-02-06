@@ -1,5 +1,5 @@
 class Carpool < ApplicationRecord
-    has_many :kids
-    has_many :cars
+    belongs_to :kid
+    belongs_to :car
     #validates :status, strings contain accepted, rejected, requested
 end
