@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_01_17_041748) do
+ActiveRecord::Schema.define(version: 2023_02_10_011600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,12 +27,12 @@ ActiveRecord::Schema.define(version: 2023_01_17_041748) do
     t.integer "user_id"
     t.integer "seats_available"
     t.string "school"
-    t.time "dismissal_time"
-    t.boolean "monday"
-    t.boolean "tuesday"
-    t.boolean "wednesday"
-    t.boolean "thursday"
-    t.boolean "friday"
+    t.string "dismissal_time"
+    t.string "monday"
+    t.string "tuesday"
+    t.string "wednesday"
+    t.string "thursday"
+    t.string "friday"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(version: 2023_01_17_041748) do
   create_table "kids", force: :cascade do |t|
     t.string "name"
     t.string "school"
-    t.time "dismissal_time"
+    t.string "dismissal_time"
     t.integer "user_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

@@ -77,12 +77,6 @@ export const updateKid = createAsyncThunk('user/updateKid', async (updatedKid) =
           return theKid.json()
 })
 
-// export const updateSumDonations = createAsyncThunk('user/updateSumDonations', async (recipientId) => {
-//     const recipient = await fetch(`/recipients/${recipientId}`)
-//     console.log("recipient", recipient)
-//     return recipient.json()
-// })
-
 export const usersSlice = createSlice({
     name: "users",
     initialState: {
@@ -182,32 +176,6 @@ export const usersSlice = createSlice({
         },
     }
 })
-
-
-
-
-
-    
-      
-    
-
-//         [updateSumDonations.fulfilled]: (state, { payload }) => {
-//             let updatedRecipient = state.user.recipients.filter((recipient) => {
-//                 return recipient.id === payload.id
-//             })[0]
-//             updatedRecipient = {...updatedRecipient, sum_donations: payload.sum_donations}
-//             state.user = {...state.user, recipients: state.user.recipients.map((r) => {
-//                 return r.id !== updatedRecipient.id ? r : updatedRecipient
-//             })}
-//             state.isFetching = false;
-//             state.isSuccess = true;
-//             state.isError = false;
-//             console.log("payload:", payload)
-//             console.log("updatedRecipient:", updatedRecipient)
-//             return state;
-//         },
-//     },
-//   })
   
-  export const { clearState } = usersSlice.actions;
-  export const userSelector = state => state.users
+export const { clearState } = usersSlice.actions;
+export const userSelector = state => state.users

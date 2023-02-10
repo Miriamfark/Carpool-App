@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
 
-  resources :kids, :cars, :carpools
-  delete 'carpool/delete', to: "carpool#destroy"
-  get '/search/:search_term', to: "cars#search"
+  resources :kids, :cars
+  resources :carpools, only: [:index, :create]
+  post 'carpools/delete', to: "carpools#destroy"
+  post '/search', to: "cars#search"
   patch 'cars/:id/seats', to: "cars#update_seats"
 
   post '/signup', to: "users#create"  

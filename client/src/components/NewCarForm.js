@@ -90,15 +90,15 @@ const NewCarForm = ({ showForm, setShowForm }) => {
             </div>
             <div>
                 <h5>Days</h5>
-                <input type="checkbox" id="Monday" name="Monday" value="Monday" onChange={() => setMonday(!monday)} />
+                <input type="checkbox" id="Monday" name="Monday" value="Monday" onChange={() => setMonday("monday")} />
                 <label for="Monday"> Monday</label> 
-                <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" onChange={() => setTuesday(!tuesday)} />
+                <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" onChange={() => setTuesday("tuesday")} />
                 <label for="Tuesday"> Tuesday</label>
-                <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" onChange={() => setWednesday(!wednesday)} />
+                <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" onChange={() => setWednesday("wednesday")} />
                 <label for="Wednesday"> Wednesday</label>
-                <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" onChange={() => setThursday(!thursday)} />
+                <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" onChange={() => setThursday("thursday")} />
                 <label for="Thursday"> Thursday</label> 
-                <input type="checkbox" id="Friday" name="Friday" value="Friday" onChange={() => setFriday(!friday)} />
+                <input type="checkbox" id="Friday" name="Friday" value="Friday" onChange={() => setFriday("friday")} />
                 <label for="Friday"> Friday</label>
             </div>
             

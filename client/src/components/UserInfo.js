@@ -7,7 +7,7 @@ const UserInfo = () => {
     const kids = useSelector((state) => state.users.user.kids)
     const cars = useSelector((state) => state.users.user.cars)
 
-    const userKids = kids.map((kid) => {
+    const userKids = kids && kids.map((kid) => {
 
         return <p key={kid.id}>
             {kid.name}
@@ -20,36 +20,36 @@ const UserInfo = () => {
             </p>
       })
     
-      const userCars = cars.map((car) => {
+      const userCars = cars && cars.map((car) => {
         return <div key={car.id}>
-            { car.monday ? (
+            { car.monday === "monday" ? (
                 <>
                     <p>Monday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name}</span>)}
+                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
                 </>
             ) : null }
-            { car.tuesday ? (
+            { car.tuesday === "tuesday" ? (
                 <>
                     <p>Tuesday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name}</span>)}
+                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
                 </>
             ) : null }            
-            { car.wednesday ? (
+            { car.wednesday === "wednesday" ? (
                 <>
                     <p>Wednesday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name}</span>)}
+                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
                 </>
             ) : null }            
-            { car.thursday ? (
+            { car.thursday === "thursday" ? (
                 <>
                     <p>Thursday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name}</span>)}
+                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
                 </>
             ) : null }            
-            { car.friday ? (
+            { car.friday === "friday" ? (
                 <>
                     <p>Friday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name}</span>)}
+                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
                 </>
             ) : null }            
             </div>

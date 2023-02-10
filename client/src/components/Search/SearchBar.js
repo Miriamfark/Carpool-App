@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-// import { useDispatch } from 'react-redux';
-// import { searchCars } from '../redux/carsSlice';
+import { useDispatch } from 'react-redux';
+import { filterCars } from '../../redux/carsSlice';
 import { useNavigate, createSearchParams } from "react-router-dom";
 
 
 
 const SearchBar = () => {
 
-    // const dispatch = useDispatch()
+    const dispatch = useDispatch()
     const navigate = useNavigate()
 
     const [driver, setDriver] = useState("")
@@ -30,7 +30,14 @@ const SearchBar = () => {
         friday: `${friday}`
     };
 
+    
 
+// const query = Object.values(params).filter(p => p)
+// console.log(query)
+// if(query !== null) {
+// const query2 = Object.fromValues(query)
+//     console.log(query2)
+// }
 
     function handleSearch(e) {
         e.preventDefault()
@@ -38,6 +45,7 @@ const SearchBar = () => {
             pathname: `/search`,
             search: `/?${createSearchParams(params)}`,
           });
+          dispatch(filterCars(params))
         }
     
 
@@ -76,15 +84,15 @@ const SearchBar = () => {
             </label>            */}
             <label>
                 Search By Day
-                <input type="checkbox" id="Monday" name="Monday" value="Monday" onChange={() => setMonday(!monday)} />
+                <input type="checkbox" id="Monday" name="Monday" value="Monday" onChange={() => setMonday("monday")} />
                 <label for="Monday"> Monday</label> 
-                <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" onChange={() => setTuesday(!tuesday)} />
+                <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" onChange={() => setTuesday("tuesday")} />
                 <label for="Tuesday"> Tuesday</label>
-                <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" onChange={() => setWednesday(!wednesday)} />
+                <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" onChange={() => setWednesday("wednesday")} />
                 <label for="Wednesday"> Wednesday</label>
-                <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" onChange={() => setThursday(!thursday)} />
+                <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" onChange={() => setThursday("thursday")} />
                 <label for="Thursday"> Thursday</label> 
-                <input type="checkbox" id="Friday" name="Friday" value="Friday" onChange={() => setFriday(!friday)} />
+                <input type="checkbox" id="Friday" name="Friday" value="Friday" onChange={() => setFriday("friday")} />
                 <label for="Friday"> Friday</label>
             </label> 
             <input type="submit" value="Search"></input>  

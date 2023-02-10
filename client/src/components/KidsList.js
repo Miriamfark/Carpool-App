@@ -17,8 +17,10 @@ const KidsList = () => {
     const [dismissal, setDismissal] = useState("")
 
     function handleDeleteKid(id) {
+        //cleanup the form
         // setEditForm(!editForm)
         dispatch(removeKid(id))
+        //navigate to /kids
     }
 
     function handleUpdateKid(kid) {
@@ -29,9 +31,13 @@ const KidsList = () => {
         setShowForm(!showForm)
     }
 
+
     const mappedKids = kids && kids.map((kid) => {
+
+        const time = kid.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+
         return <li key={kid.id}>
-            Name: {kid.name}   School: {kid.school}  Dismissal Time: {kid.dismissal_time}
+            Name: {kid.name}   School: {kid.school}  Dismissal Time: {time}
             <Link to={`${kid.id}`}>Edit</Link>
             <button onClick={() => handleDeleteKid(kid.id)}>Remove</button>
             </li>

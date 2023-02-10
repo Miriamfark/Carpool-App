@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCars, updateSeatsAvailable } from '../redux/carsSlice';
+import { fetchCars } from '../redux/carsSlice';
 import NewCarForm from './NewCarForm';
 import SearchBar from './Search/SearchBar';
 import { deleteCarpool, postCarpool } from '../redux/carpoolsSlice';
@@ -8,45 +8,45 @@ import { deleteCarpool, postCarpool } from '../redux/carpoolsSlice';
 const Cars = () => {
 
     const dispatch = useDispatch()
+    const errorMessageCarpool = useSelector(state => state.carpools.errorMessage)
+    const errorMessageSearch = useSelector(state => state.cars.errorMessage)
 
     const [showForm, setShowForm] = useState(false)
     const [addKidButton, setAddKidButton] = useState(false)
-    const [removeKidButton, setRemoveKidButton] = useState(true)
-    // let disabledButton
+    const [removeKidButton, setRemoveKidButton] = useState(false)
+
+    const cars = useSelector((state) => state.cars.cars)
+    const kids = useSelector((state) => state.users.user.kids)
 
     useEffect(() => {
         dispatch(fetchCars())
     }, [dispatch])
 
-    const cars = useSelector((state) => state.cars.cars)
-    const kids = useSelector((state) => state.users.user.kids)
-
     function addKidToCar(e, kidId, carId) {
-        const carpoolData ={
+        const carpoolData = {
             kid_id: kidId,
             car_id: carId
         }
         dispatch(postCarpool(carpoolData))
-        dispatch(updateSeatsAvailable(carId))
+        // dispatch()
         e.currentTarget.disabled = true;
-
+        //how do I make page refresh?
     }
 
     function removeKidFromCar(e, kidId, carId) {
+        const carpoolData = {
+            kid_id: kidId,
+            car_id: carId
+        }
         e.currentTarget.disabled = true;
-        dispatch(deleteCarpool(carpoolId))
+        dispatch(deleteCarpool(carpoolData))
 
     }
    
     const mappedCars = cars && cars.map((car) => {
         
         const mappedKids = kids.map((kid) => {
-            // if(car.kids.some(k => k.name === kid.name)) {
-            //    setAddKidButton(true)
-            //    setRemoveKidButton(false)
-            // } else if ((car.seats_available < 1)) {
-            //     setAddKidButton(true)
-            // }
+          
          return (
             <div>
                 
@@ -58,25 +58,29 @@ const Cars = () => {
          )
             
         })
+
+        const time = car.dismissal_time && car.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+
        
         return(
             <div key={car.id}>
                 <p>Driver: {car.user && car.user.name}</p>
                 <p>Seats Available: {car.seats_available}</p>
                 <p>School: {car.school}</p>
-                <p>Time: {car.dismissal_time}</p>
+                <p>Time: {time}</p>
                 <p>Kids in Carpool: {car.kids && car.kids.map((kid, index) => <span key={index}>{kid.name} </span>)}</p>
                 <ul>
                     <h5>Days</h5>
-                    { car.monday ? <p>Monday</p> : null }
-                    { car.tuesday ? <p>Tuesday</p> : null }
-                    { car.wednesday ? <p>Wednesday</p> : null }
-                    { car.thursday ? <p>Thursday</p> : null }
-                    { car.friday ? <p>Friday</p> : null }
+                    { car.monday === "monday" ? <p>Monday</p> : null }
+                    { car.tuesday === "tuesday" ? <p>Tuesday</p> : null }
+                    { car.wednesday === "wednesday" ? <p>Wednesday</p> : null }
+                    { car.thursday === "thursday" ? <p>Thursday</p> : null }
+                    { car.friday === "friday" ? <p>Friday</p> : null }
                 </ul>
                 <div>
                     {mappedKids}
                 </div>
+                { errorMessageCarpool && <p>{errorMessageCarpool}</p>}
             </div>
         )
     })
@@ -90,6 +94,7 @@ const Cars = () => {
         <div>
             <SearchBar />    
         </div>
+        { errorMessageSearch && <p>{errorMessageSearch}</p>}
         <ul>
             {mappedCars}
         </ul>
