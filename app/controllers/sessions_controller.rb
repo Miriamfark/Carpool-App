@@ -2,7 +2,6 @@ class SessionsController < ApplicationController
     skip_before_action :authorize, only: [:create]
 
     def create 
-        # byebug
         user = User.find_by(name: params[:name])
         puts "params", user
         if user&.authenticate(params[:password])

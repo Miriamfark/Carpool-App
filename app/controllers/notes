@@ -1,0 +1,13 @@
+Issues to solve:
+
+1. when no one logged in, shows UserInfo page with no information
+3. when add or remove child from carpool there is no automatic refresh
+4. when remove or edit a car there is no automatic refresh
+
+Still need to:
+1. Actiona Mailer
+2. Css styling
+3. blog post
+4. video
+5. book review
+6. error handling

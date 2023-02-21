@@ -1,5 +1,6 @@
 class CarsController < ApplicationController
-#error handling
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
     def index 
         cars = Car.all 
         render json: cars
@@ -14,6 +15,8 @@ class CarsController < ApplicationController
         user = User.find(session[:user_id])
         car = user.cars.create!(car_params)
         render json: car
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update 
@@ -29,8 +32,12 @@ class CarsController < ApplicationController
     end 
 
     def search 
-        cars = Car.car_search(params[:school] || params[:dismissal_time] || params[:monday] || params[:tuesday] || params[:wednesday] || params[:thursday] || params[:friday])
-        render json: cars
+        if params[:school].length > 0
+            cars = Car.car_search(params[:school])
+        elsif params[:dismissal_time].length > 0
+            cars = Car.car_search(params[:dismissal_time])
+        end
+            render json: cars
     end
 
     private
@@ -42,5 +49,9 @@ class CarsController < ApplicationController
     def find_car 
         Car.find(params[:id])
     end
+
+    def render_not_found_response
+        render json: { error: "Not found" }, status: :not_found
+    end 
 
 end

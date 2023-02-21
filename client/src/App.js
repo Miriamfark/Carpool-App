@@ -3,13 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom"
 import { useSelector } from 'react-redux';
 import './App.css';
-import KidsList from './components/KidsList';
+import KidsList from './Kids/KidsList';
 import Login from './components/Login/Login';
 import NavBar from './components/NavBar';
-import Cars from './components/Cars';
+import Cars from './components/Cars/Cars';
 import UserInfo from './components/UserInfo';
+import UserCars from './components/Cars/UserCars';
 import { fetchUser } from './redux/usersSlice';
-import EditKid from './components/EditKid';
+import EditKid from './Kids/EditKid';
+import EditCar from './components/Cars/EditCar';
 
 function App() {
 
@@ -33,6 +35,9 @@ function App() {
           <Route path=":kidId" element={<EditKid kids={user.kids}/>} />
         </Route>
         <Route path="/me" element={<UserInfo />} />
+        <Route path="/my_cars" element={<UserCars />} >
+          <Route path=":carId" element={<EditCar cars={user.cars} user={user}/>} />
+        </Route>
       </Routes>
     </div>
   );

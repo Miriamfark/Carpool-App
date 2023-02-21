@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { postCar } from '../redux/carsSlice';
-import { fetchUser } from '../redux/usersSlice';
+import { postCar } from '../../redux/carsSlice';
+import { fetchUser } from '../../redux/usersSlice';
 
 const NewCarForm = ({ showForm, setShowForm }) => {
 
@@ -107,5 +107,5 @@ const NewCarForm = ({ showForm, setShowForm }) => {
     </div>
   )
 }
-//days handle change with conditional logic if checked true if unchecked false - ternary? array of days of week
+
 export default NewCarForm

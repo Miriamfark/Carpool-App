@@ -6,4 +6,5 @@ class User < ApplicationRecord
     has_many :carpools, through: :kids
     validates :name, uniqueness: true
     validates :password, presence: true
+    validates :email, presence: true, format: /\w+@\w+\.{1}[a-zA-Z]{2,}/
 end

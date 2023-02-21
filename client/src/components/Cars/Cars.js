@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCars } from '../redux/carsSlice';
+import { fetchCars, addKidToCarpool } from '../../redux/carsSlice';
 import NewCarForm from './NewCarForm';
-import SearchBar from './Search/SearchBar';
-import { deleteCarpool, postCarpool } from '../redux/carpoolsSlice';
+import SearchBar from '../Search/SearchBar';
 
 const Cars = () => {
 
     const dispatch = useDispatch()
-    const errorMessageCarpool = useSelector(state => state.carpools.errorMessage)
-    const errorMessageSearch = useSelector(state => state.cars.errorMessage)
 
     const [showForm, setShowForm] = useState(false)
-    const [addKidButton, setAddKidButton] = useState(false)
-    const [removeKidButton, setRemoveKidButton] = useState(false)
 
     const cars = useSelector((state) => state.cars.cars)
     const kids = useSelector((state) => state.users.user.kids)
@@ -22,45 +17,59 @@ const Cars = () => {
         dispatch(fetchCars())
     }, [dispatch])
 
-    function addKidToCar(e, kidId, carId) {
+    function addKidToCar(kidId, carId) {
         const carpoolData = {
             kid_id: kidId,
-            car_id: carId
+            car_id: carId,
+            status: "pending"
         }
-        dispatch(postCarpool(carpoolData))
-        // dispatch()
-        e.currentTarget.disabled = true;
-        //how do I make page refresh?
+        fetch('/carpools', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(carpoolData)
+                })
+            .then((r) => r.json())
+            .then((data) => {
+                if (data.error) {
+                    alert(data.error)
+                } else {
+                    return data                
+                }
+            })
+        dispatch(addKidToCarpool(carpoolData))
     }
 
-    function removeKidFromCar(e, kidId, carId) {
+    function removeKidFromCar(kidId, carId) {
         const carpoolData = {
             kid_id: kidId,
             car_id: carId
         }
-        e.currentTarget.disabled = true;
-        dispatch(deleteCarpool(carpoolData))
-
+        fetch(`/carpools/delete`, { 
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(carpoolData) })
+            
+            .then((r) => r.json())
+            .then((data) => console.log(data))
     }
    
     const mappedCars = cars && cars.map((car) => {
         
         const mappedKids = kids.map((kid) => {
-          
-         return (
-            <div>
-                
-                    <button key={kid.id} disabled={addKidButton} onClick={(e) => addKidToCar(e, kid.id, car.id)}>Add {kid.name} to this car</button>
-              
-                    <button key={kid.id} disabled={removeKidButton} onClick={(e) => removeKidFromCar(e, kid.id, car.id)}>Remove {kid.name} from this car</button>
-                
-            </div>
-         )
-            
+         return  <button key={kid.id} onClick={(e) => addKidToCar(kid.id, car.id)}>Add {kid.name} to this car</button>   
         })
-
+        
         const time = car.dismissal_time && car.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
+        const mappedCarKids = car.kids.map((kid) => {
+            if(kids.find(k => k.id === kid.id)) {
+            return <button key={kid.id} onClick={(e) => removeKidFromCar(kid.id, car.id)}>Remove {kid.name} from this car</button> 
+            }
+         })
        
         return(
             <div key={car.id}>
@@ -78,9 +87,9 @@ const Cars = () => {
                     { car.friday === "friday" ? <p>Friday</p> : null }
                 </ul>
                 <div>
-                    {mappedKids}
+                     {mappedKids}
+                    {mappedCarKids}
                 </div>
-                { errorMessageCarpool && <p>{errorMessageCarpool}</p>}
             </div>
         )
     })
@@ -94,12 +103,11 @@ const Cars = () => {
         <div>
             <SearchBar />    
         </div>
-        { errorMessageSearch && <p>{errorMessageSearch}</p>}
         <ul>
             {mappedCars}
         </ul>
         <button onClick={toggleCarForm}>Add New Car</button>
-        { showForm? <NewCarForm showForm={showForm} setShowForm={setShowForm} /> : null }
+        { showForm ? <NewCarForm showForm={showForm} setShowForm={setShowForm} /> : null }
     </div>
   )
 }

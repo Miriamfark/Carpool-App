@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction } from "@reduxjs/toolkit";
 
 export const fetchCars = createAsyncThunk('cars/getCars', async () => {
     const getCars = await fetch('/cars');
@@ -28,7 +29,33 @@ export const filterCars = createAsyncThunk('cars/filterCars', async (query) => {
         body: JSON.stringify(query)
     })
     const data = await cars.json()
+    console.log(data)
     return data
+})
+
+export const addKidToCarpool = createAction('cars/addKid', function prepare(carpoolData) {
+    return {
+        payload: {
+            kid_id: carpoolData.kid_id,
+            car_id: carpoolData.car_id
+        },
+    }
+})
+
+export const updateCar = createAsyncThunk('cars/updateCar', async (updatedCar) => {
+    const car = await fetch(`/my_cars/${updatedCar.id}`, {
+        method: "PATCH", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(updatedCar)
+    })
+    return car.json()
+} )
+
+export const deleteCar = createAsyncThunk('cars/deleteCar', async (carId) => {
+    const car = await fetch(`cars/${carId}`, { method: "DELETE" })
+    return carId
 })
 
 
@@ -49,6 +76,9 @@ export const carsSlice = createSlice({
             state.errorMessage = false
             return state;
     },
+        addKidToCarpool: (state, { payload }) => {
+            console.log("in carsSlice reducer:", payload)
+        }
     },
     extraReducers: {
         [fetchCars.fulfilled]: (state, { payload }) => {
@@ -71,15 +101,39 @@ export const carsSlice = createSlice({
             state.isSuccess = true;
             return state;
         },
-
-    [postCar.fulfilled]: (state, { payload }) => {
-        console.log(payload)
-        state.cars = [...state.cars, payload];
-        state.isFetching = false;
-        state.isSuccess = true;
-        return state;
+        [postCar.fulfilled]: (state, { payload }) => {
+            state.cars = [...state.cars, payload];
+            state.isFetching = false;
+            state.isSuccess = true;
+            return state;
         },
-  
+        [updateCar.fulfilled]: (state, { payload }) => {
+            let patchedCar = state.cars.filter((car) => car.id == payload.id)[0]
+            patchedCar = {...patchedCar, 
+                school: payload.school, 
+                dimissal_time: payload.dismissal_time,
+                seats_available: payload.seats_available,
+                monday: payload.monday,
+                tuesday: payload.tuesday,
+                wedensday: payload.wednesday,
+                thursday: payload.thursday,
+                friday: payload.friday}
+            const mappedCars = state.cars.map((c) => {
+                return c.id !== patchedCar.id ? c : patchedCar
+            })
+            state.isFetching = false;
+            state.isSuccess = true;
+            state.cars = mappedCars
+            return state;
+            },
+            [deleteCar.fulfilled]: (state, { payload }) => {
+                const filteredCars = state.cars.filter((car) => car.id !== payload)
+                state.cars = filteredCars
+                state.isFetching = false;
+                state.isSuccess = true;
+                state.isError = false;
+                return state;
+                },
     }
 })
 

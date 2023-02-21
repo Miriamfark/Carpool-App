@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
 import { userSelector, clearState, loginUser } from '../../redux/usersSlice';
@@ -7,11 +7,19 @@ import { userSelector, clearState, loginUser } from '../../redux/usersSlice';
 const LoginForm = () => {
 
     const dispatch = useDispatch()
-    const navigate = useNavigate()
+    const { isError, errorMessage } = useSelector(userSelector)
+
 
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
+
+    useEffect(() => {
+        if (isError) {
+            setErrors(errorMessage)
+            dispatch(clearState())
+        }
+    }, [isError, dispatch, errorMessage])
 
     function handleLoginSubmit(e) {
         e.preventDefault()
@@ -22,7 +30,6 @@ const LoginForm = () => {
         dispatch(loginUser(user))
         setName("")
         setPassword("")
-        navigate('/me')
     }
 
   return (
@@ -48,6 +55,7 @@ const LoginForm = () => {
                 <input type="submit"></input>
             </div>
         </form>
+        { errors ? <h5>{errors}</h5> : null }
     </div>
   )
 }

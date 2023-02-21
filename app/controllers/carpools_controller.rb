@@ -7,10 +7,15 @@ class CarpoolsController < ApplicationController
 
     def create
         car = Car.find(params[:car_id]) 
+        kid = Kid.find(params[:kid_id])
         if car.kids.find_by(id: params[:kid_id])
             render json: { error: "This kid is already in the car"}, status: 401
         elsif car.seats_available < 1
             render json: { error: "There are no more seats in this car"}, status: 401
+        elsif car.school != kid.school
+            render json: { error: "Wrong school!" }, status: 401
+        elsif car.dismissal_time != kid.dismissal_time
+            render json: { error: "Wrong time!" }, status: 401
         else
             car.update(seats_available: car.seats_available - 1)
             carpool = Carpool.create!(carpool_params)
@@ -29,6 +34,6 @@ class CarpoolsController < ApplicationController
     private 
 
     def carpool_params 
-        params.permit(:kid_id, :car_id)
+        params.permit(:kid_id, :car_id, :status)
     end
 end

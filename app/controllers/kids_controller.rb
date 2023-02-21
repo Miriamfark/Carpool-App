@@ -1,5 +1,7 @@
 class KidsController < ApplicationController
-#error handling
+
+    rescue_from ActiveRecord::RecordNotFound, with: :render_not_found_response
+
     def index 
         user = find_user
         kids = user.kids.all 
@@ -15,6 +17,8 @@ class KidsController < ApplicationController
         user = find_user
         kid = user.kids.create!(kid_params) 
         render json: kid
+    rescue ActiveRecord::RecordInvalid => e
+        render json: { errors: e.record.errors.full_messages }, status: :unprocessable_entity
     end
 
     def update 
@@ -41,5 +45,10 @@ class KidsController < ApplicationController
 
     def find_kid 
         Kid.find(params[:id])
+    end
+
+
+    def render_not_found_response
+        render json: { error: "Not found" }, status: :not_found
     end
 end
