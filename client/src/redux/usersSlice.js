@@ -1,39 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
+import { createAction } from "@reduxjs/toolkit";
 
-export const signupUser = createAsyncThunk('user/signup', async (user) => {
-    const userSignup = await fetch('/signup', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    })
-    const response = await userSignup.json()
-    return response
-})
+// export const signupUser = createAction('users/signupUser', (data) => {
+//     console.log(data)
+//     return data
+// })
 
-export const loginUser = createAsyncThunk('user/login', async (user) => {
-    try { const userLogin = await fetch('login', {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(user)
-    })
+// export const loginUser = createAsyncThunk('user/login', async (user) => {
+//     try { const userLogin = await fetch('login', {
+//         method: "POST",
+//         headers: {
+//             "Content-Type": "application/json"
+//         },
+//         body: JSON.stringify(user)
+//     })
     
-    const data = await userLogin.json()
+//     const data = await userLogin.json()
 
-    if(data) {
-        return data
-    } else {
-        return data.error
-    }}
-    catch(error) {
-        throw new Error(error)
-    }
+//     if(data) {
+//         return data
+//     } else {
+//         return data.error
+//     }}
+//     catch(error) {
+//         throw new Error(error)
+//     }
     
-})
+// })
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
     const userLogout = await fetch(`/logout`, {
@@ -104,38 +98,35 @@ export const usersSlice = createSlice({
             state.errorMessage = false
             return state;
     },
+        signupUser: (state, data) => {
+            console.log(data.payload)
+            state.user = data.payload
+        },
+        loginUser: (state, data) => {
+            console.log(data.payload)
+
+            state.user = data.payload
+        }
     },
     extraReducers: {
-        [signupUser.fulfilled]: (state, { payload }) => {
-          state.isFetching = false;
-          state.isSuccess = true;
-          state.user = payload
-      },
-      [signupUser.pending]: (state) => {
-          state.isFetching = true;
-      },
-      [signupUser.rejected]: (state, { payload }) => {
-          state.isFetching = false;
-          state.isError = true;
-          state.errorMessage = payload;
-      },
-      [loginUser.fulfilled]: (state, { payload }) => {
-        console.log(payload)
-          state.user = payload;
-          state.isFetching = false;
-          state.isSuccess = true;
-          state.isError = false;
-          console.log("login fulfilled", state)
-          return state;
-      },
-      [loginUser.rejected]: (state) => {
-          state.isFetching = false;
-          state.isError = true;
-          state.errorMessage = "Invalid user name or password";
-      },
-      [loginUser.pending]: (state) => {
-          state.isFetching = true;
-      }, 
+
+    //   [loginUser.fulfilled]: (state, { payload }) => {
+    //     console.log(payload)
+    //       state.user = payload;
+    //       state.isFetching = false;
+    //       state.isSuccess = true;
+    //       state.isError = false;
+    //       console.log("login fulfilled", state)
+    //       return state;
+    //   },
+    //   [loginUser.rejected]: (state) => {
+    //       state.isFetching = false;
+    //       state.isError = true;
+    //       state.errorMessage = "Invalid user name or password";
+    //   },
+    //   [loginUser.pending]: (state) => {
+    //       state.isFetching = true;
+    //   }, 
     [fetchUser.fulfilled]: (state, { payload }) => {
         console.log(payload)
         state.user = payload;
@@ -190,5 +181,5 @@ export const usersSlice = createSlice({
     }
 })
   
-export const { clearState } = usersSlice.actions;
+export const { clearState, signupUser, loginUser } = usersSlice.actions;
 export const userSelector = state => state.users

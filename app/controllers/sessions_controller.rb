@@ -7,7 +7,7 @@ class SessionsController < ApplicationController
             session[:user_id] = user.id
             render json: user, status: :created
         else
-            render nil , status: 401 
+            render json: { errors: "Invalid username or password" }, status: :unprocessable_entity
         end     
     end
 

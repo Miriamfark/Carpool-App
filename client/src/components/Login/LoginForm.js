@@ -1,14 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { userSelector, clearState, loginUser, fetchUser } from '../../redux/usersSlice';
+import { loginUser, fetchUser } from '../../redux/usersSlice';
 
 
 const LoginForm = () => {
 
     const dispatch = useDispatch()
-    const { isError, errorMessage } = useSelector(userSelector)
-
     const navigate = useNavigate()
 
 
@@ -16,25 +14,29 @@ const LoginForm = () => {
     const [password, setPassword] = useState("")
     const [errors, setErrors] = useState(false)
 
-    useEffect(() => {
-        if (isError) {
-            setErrors(errorMessage)
-            dispatch(clearState())
-        }
-    }, [isError, dispatch, errorMessage])
-
     function handleLoginSubmit(e) {
         e.preventDefault()
         const user = {
             name,
             password
         }
-        dispatch(loginUser(user))
+        fetch('login', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+        })
+        .then((r) => {
+            if (!r.ok) {
+                return r.json().then((e) => setErrors(Object.entries(e).toString()))
+            } else {
+                return r.json().then((data) => dispatch(loginUser(data)))
+            }
+        })
         setName("")
         setPassword("")
         navigate('/me')
-        // window.history.pushState({}, '', '/me')
-        // window.location.reload();
     }
 
   return (

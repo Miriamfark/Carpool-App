@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { signupUser } from '../../redux/usersSlice';
+import { signupUser, clearState, userSelector } from '../../redux/usersSlice';
 
 function SignupForm() {
 
@@ -10,6 +10,7 @@ function SignupForm() {
     const [password, setPassword] = useState("")
     const [passwordConfirmation, setPasswordConfirmation] = useState("")
     const [email, setEmail] = useState("")
+    const [errors, setErrors] = useState(false)
 
     function handleSubmit(e) {
         e.preventDefault()
@@ -19,8 +20,22 @@ function SignupForm() {
             passwordConfirmation,
             email
         }
-        dispatch(signupUser(user))
-    }
+        fetch('/signup', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(user)
+    })
+    .then((r) => {
+        if(!r.ok) {
+            return r.json().then((e) => setErrors(Object.entries(e).toString()))
+        } else {
+            return r.json().then((data) => dispatch(signupUser(data)))
+        }
+    })
+    
+}
 
   return (
     <div className="row container valign-wrapper">
@@ -63,6 +78,7 @@ function SignupForm() {
                 </div>
             </div>
         </form>
+        { errors ? <h5>{errors}</h5> : null }
     </div>
   )
 }
