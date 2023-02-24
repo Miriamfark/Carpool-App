@@ -3,15 +3,15 @@ import { useDispatch } from 'react-redux';
 import { Routes, Route } from "react-router-dom"
 import { useSelector } from 'react-redux';
 import './App.css';
-import KidsList from './Kids/KidsList';
 import Login from './components/Login/Login';
 import NavBar from './components/NavBar';
 import Cars from './components/Cars/Cars';
 import UserInfo from './components/UserInfo';
 import UserCars from './components/Cars/UserCars';
-import { fetchUser } from './redux/usersSlice';
-import EditKid from './Kids/EditKid';
+import { fetchUser, clearState } from './redux/usersSlice';
 import EditCar from './components/Cars/EditCar';
+import EditKid from './components/Kids/EditKid'
+import KidsList from './components/Kids/KidsList'
 
 function App() {
 
@@ -21,7 +21,7 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchUser())
-  }, [dispatch])
+  }, [dispatch, user?.id])
 
   if (!user) return <Login />;
 

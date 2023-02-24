@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeKid, updateKid } from '../redux/usersSlice';
+import { removeKid, updateKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
-import EditKid from './EditKid';
 
 const KidsList = () => {
 

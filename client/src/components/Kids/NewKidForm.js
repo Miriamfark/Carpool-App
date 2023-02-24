@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postKid } from '../redux/usersSlice';
+import { postKid } from '../../redux/usersSlice';
 
 const NewKidForm = ({
     school,

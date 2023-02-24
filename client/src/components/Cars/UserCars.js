@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import NewCarForm from './NewCarForm'
-import { deleteCar } from '../../redux/carsSlice'
+import { deleteCar, fetchCars } from '../../redux/carsSlice'
 
 const UserCars = () => {
 
@@ -11,6 +11,10 @@ const UserCars = () => {
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
+
+    useEffect(() => {
+      dispatch(fetchCars())
+    }, [dispatch, cars?.length])
 
     function toggleCarForm() {
       setShowForm(!showForm)
@@ -38,6 +42,8 @@ const UserCars = () => {
             </div>
         )
     })
+
+    
   return (
     <div>
       {mappedCars}

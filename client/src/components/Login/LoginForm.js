@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from "react-redux";
-import { userSelector, clearState, loginUser } from '../../redux/usersSlice';
+import { useNavigate } from 'react-router-dom';
+import { userSelector, clearState, loginUser, fetchUser } from '../../redux/usersSlice';
 
 
 const LoginForm = () => {
 
     const dispatch = useDispatch()
     const { isError, errorMessage } = useSelector(userSelector)
+
+    const navigate = useNavigate()
 
 
     const [name, setName] = useState("")
@@ -30,6 +32,9 @@ const LoginForm = () => {
         dispatch(loginUser(user))
         setName("")
         setPassword("")
+        navigate('/me')
+        // window.history.pushState({}, '', '/me')
+        // window.location.reload();
     }
 
   return (

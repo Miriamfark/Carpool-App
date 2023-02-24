@@ -14,17 +14,25 @@ export const signupUser = createAsyncThunk('user/signup', async (user) => {
 })
 
 export const loginUser = createAsyncThunk('user/login', async (user) => {
-    const userLogin = await fetch('login', {
+    try { const userLogin = await fetch('login', {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(user)
     })
-
+    
     const data = await userLogin.json()
-    console.log(data)
-    return data
+
+    if(data) {
+        return data
+    } else {
+        return data.error
+    }}
+    catch(error) {
+        throw new Error(error)
+    }
+    
 })
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
@@ -37,10 +45,16 @@ export const logoutUser = createAsyncThunk('user/logout', async () => {
 });
 
 export const fetchUser = createAsyncThunk('user/getUser', async () => {
-        const getUser = await fetch('/me');
+       const getUser = await fetch('/me');
         const user = await getUser.json()
-        return user
-});
+        if(getUser.status === 200) {
+            return user
+        } else {
+            console.log("error")
+            return null
+        }
+  
+    });
 
 export const postKid = createAsyncThunk('user/addKid', async (kid) => {
  const newKid = await fetch('/kids', {
@@ -52,13 +66,9 @@ export const postKid = createAsyncThunk('user/addKid', async (kid) => {
 })
 
 const data = await newKid.json()
-        if (newKid.ok) {
-            return data
-        } else {
-            return data.errors
-        }
+    return data
+       
     })
-
 
 export const removeKid = createAsyncThunk('user/removeKid', async (id) => {
     const kid = await fetch(`/kids/${id}`, { method: "DELETE" })
@@ -80,7 +90,7 @@ export const updateKid = createAsyncThunk('user/updateKid', async (updatedKid) =
 export const usersSlice = createSlice({
     name: "users",
     initialState: {
-        user: { kids: [], cars: [] },
+        user: {} ,
         isFetching: false,
         isSuccess: false,
         isError: false,
@@ -110,6 +120,7 @@ export const usersSlice = createSlice({
           state.errorMessage = payload;
       },
       [loginUser.fulfilled]: (state, { payload }) => {
+        console.log(payload)
           state.user = payload;
           state.isFetching = false;
           state.isSuccess = true;
@@ -120,18 +131,20 @@ export const usersSlice = createSlice({
       [loginUser.rejected]: (state) => {
           state.isFetching = false;
           state.isError = true;
-          state.errorMessage = "Invalid username or password";
+          state.errorMessage = "Invalid user name or password";
       },
       [loginUser.pending]: (state) => {
           state.isFetching = true;
       }, 
     [fetchUser.fulfilled]: (state, { payload }) => {
+        console.log(payload)
         state.user = payload;
         state.isFetching = false;
         state.isSuccess = true;
         return state;
       },
     [fetchUser.rejected]: (state, { payload }) => {
+        console.log("rejected")
         state.isFetching = false;
         state.isError = true;
         state.errorMessage = payload;
@@ -140,11 +153,11 @@ export const usersSlice = createSlice({
         state.isFetching = true;
       },  
     [logoutUser.fulfilled]: (state) => {
+        console.log("logged out!")
         state.user = null;
         state.isFetching = false;
         state.isSuccess = true;
         state.isError = false;
-        console.log("logged out!")
         return state;
         },
     [postKid.fulfilled]: (state, { payload }) => {

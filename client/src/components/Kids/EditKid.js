@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { updateKid } from '../redux/usersSlice';
+import { updateKid } from '../../redux/usersSlice';
 
 const EditKid = ({ kids }) => {
 

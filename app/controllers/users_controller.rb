@@ -4,6 +4,10 @@ class UsersController < ApplicationController
     def create
         user = User.create(user_params)
         session[:user_id] = user.id
+        if user
+            KidAddedMailer.welcome_email(user).deliver_now
+        end
+
         render json: user, status: :created
     end
 
