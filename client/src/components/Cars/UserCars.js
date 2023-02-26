@@ -14,8 +14,6 @@ const UserCars = () => {
   }, [])
 
     const cars = useSelector((state) => state.users.user.cars)
-    console.log(cars)
-
 
     const [showForm, setShowForm] = useState(false)
 

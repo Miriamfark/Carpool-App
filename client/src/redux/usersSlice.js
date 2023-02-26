@@ -16,7 +16,6 @@ export const fetchUser = createAsyncThunk('user/getUser', async () => {
         if(getUser.status === 200) {
             return user
         } else {
-            console.log("error")
             return null
         }
   
@@ -42,7 +41,6 @@ export const removeKid = createAsyncThunk('user/removeKid', async (id) => {
 })
 
 export const updateKid = createAsyncThunk('user/updateKid', async (updatedKid) => {
-    console.log(updatedKid)
     const theKid = await fetch(`/kids/${updatedKid.id}`, {
             method: "PATCH",
             headers: {
@@ -61,7 +59,6 @@ export const usersSlice = createSlice({
         isSuccess: false,
         isError: false,
         errorMessage: "",
-        loading: 'idle',
     },
     reducers: {
         clearState: (state) => {
@@ -72,7 +69,6 @@ export const usersSlice = createSlice({
             return state;
     },
         signupUser: (state, data) => {
-            console.log(data.payload)
             state.user = data.payload
         },
         loginUser: (state, data) => {
@@ -106,7 +102,6 @@ export const usersSlice = createSlice({
     },
     extraReducers: {
     [fetchUser.fulfilled]: (state, { payload }) => {
-        console.log(payload)
         state.user = payload;
         state.isFetching = false;
         state.isSuccess = true;
@@ -121,7 +116,6 @@ export const usersSlice = createSlice({
         state.isFetching = true;
       },  
     [logoutUser.fulfilled]: (state) => {
-        console.log("logged out!")
         state.user = null;
         state.isFetching = false;
         state.isSuccess = true;
@@ -129,9 +123,6 @@ export const usersSlice = createSlice({
         return state;
         },
     [postKid.fulfilled]: (state, { payload }) => {
-        console.log(payload)
-        console.log(state.kids)
-        state.loading = 'succeeded';
         state.user = {...state.user, kids: [...state.user.kids, payload]};
         state.isFetching = false;
         state.isSuccess = true;
@@ -140,7 +131,6 @@ export const usersSlice = createSlice({
     [removeKid.fulfilled]: (state, { payload }) => {
         const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
         state.user.kids = filteredKids
-        state.loading = 'succeeded';
         state.isFetching = false;
         state.isSuccess = true;
         state.isError = false;
@@ -153,9 +143,7 @@ export const usersSlice = createSlice({
             return k.id !== patchedKid.id ? k : patchedKid
         })}
         state.isFetching = false;
-        state.loading = 'succeeded';
         state.isSuccess = true;
-        console.log("in the reducer", payload)
         return state;
         },
     }

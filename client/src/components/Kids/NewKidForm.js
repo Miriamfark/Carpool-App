@@ -21,7 +21,6 @@ const NewKidForm = ({
             dismissal_time: dismissal
         }
         dispatch(postKid(kid))
-        console.log(name, school, dismissal)
         setName("")
         setSchool("")
         setDismissal("")

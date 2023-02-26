@@ -29,7 +29,6 @@ export const filterCars = createAsyncThunk('cars/filterCars', async (query) => {
         body: JSON.stringify(query)
     })
     const data = await cars.json()
-    console.log(data)
     return data
 })
 
@@ -58,7 +57,6 @@ export const carsSlice = createSlice({
         isSuccess: false,
         isError: false,
         errorMessage: "",
-        loading: 'idle',
     },
     reducers: {
         clearState: (state) => {
@@ -67,13 +65,7 @@ export const carsSlice = createSlice({
             state.isFetching = false;
             state.errorMessage = false
             return state;
-    },
-        // addKidToCarpool: (state, { payload }) => {
-        //     // console.log("in carsSlice reducer:", payload.carpool.status)
-        //     if(payload.carpool.status === "pending") {
-        //         const kid = payload.carpool.kid_id
-        //     }
-        // }
+    }
     },
     extraReducers: {
         [fetchCars.fulfilled]: (state, { payload }) => {
@@ -93,13 +85,11 @@ export const carsSlice = createSlice({
         [filterCars.fulfilled]: (state, { payload }) => {
             state.cars = payload
             state.isFetching = false;
-            state.loading = 'succeeded';
             state.isSuccess = true;
             return state;
         },
         [postCar.fulfilled]: (state, { payload }) => {
             state.cars = [...state.cars, payload];
-            state.loading = 'succeeded';
             state.isFetching = false;
             state.isSuccess = true;
             return state;
@@ -124,13 +114,11 @@ export const carsSlice = createSlice({
             state.cars = updatedCars;
             state.isFetching = false;
             state.isSuccess = true;
-            state.loading = 'succeeded';
             return state;
           },
             [deleteCar.fulfilled]: (state, { payload }) => {
                 const filteredCars = state.cars.filter((car) => car.id !== payload)
                 state.cars = filteredCars
-                state.loading = 'succeeded';
                 state.isFetching = false;
                 state.isSuccess = true;
                 state.isError = false;

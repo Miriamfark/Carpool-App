@@ -9,7 +9,6 @@ const NavBar = () => {
   const dispatch = useDispatch()
 
   const user = useSelector((state) => state.users.user)
-  console.log(user)
 
   function handleLogout() {
     dispatch(logoutUser())

@@ -4,7 +4,6 @@ import { useParams } from 'react-router-dom';
 const RequestPending = () => {
 
     const id = useParams()
-    console.log(id)
 
     const [carpool, setCarpool] = useState({})
 
@@ -13,7 +12,6 @@ const RequestPending = () => {
         .then((r) => r.json())
         .then((data) => {
             setCarpool(data)
-            console.log(data)
             setStatusMessage(`${data.kid.name} would like to join your carpool.`)
 
         })
@@ -39,7 +37,6 @@ const RequestPending = () => {
         .then((r) => {
             if(r.ok) {
                 r.json().then((data) => {
-                    console.log(data)
                     setStatusMessage(`${kid && kid.name} has joined your carpool!`)
                 })
             } else {
