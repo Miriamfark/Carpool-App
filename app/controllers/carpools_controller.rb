@@ -22,7 +22,7 @@ class CarpoolsController < ApplicationController
             if carpool
                 KidAddedMailer.carpool_request(carpool, car, kid).deliver_now
             end
-            render json: car, status: :created 
+            render json: { car: car, carpool: carpool }, status: :created 
         end
     end
 

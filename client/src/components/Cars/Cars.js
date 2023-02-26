@@ -9,17 +9,18 @@ const Cars = () => {
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
+    // const [carpool, setCarpool] = useState({})
 
-    const cars = useSelector((state) => state.cars.cars)
+    const { cars, loading } = useSelector((state) => state.cars)
     const kids = useSelector((state) => state.users.user.kids)
 
     useEffect(() => {
         dispatch(fetchCars())
-    }, [dispatch])
+    }, [cars.length, dispatch, loading])
 
-    function addKidToCar(kidId, carId) {
+    function addKidToCar(kid, carId) {
         const carpoolData = {
-            kid_id: kidId,
+            kid_id: kid.id,
             car_id: carId,
             status: "pending"
         }
@@ -35,15 +36,15 @@ const Cars = () => {
                 if (data.error) {
                     alert(data.error)
                 } else {
-                    return data                
+                    dispatch(fetchCars())
+                    // setCarpool(data.carpool)
                 }
             })
-        dispatch(addKidToCarpool(carpoolData))
     }
 
-    function removeKidFromCar(kidId, carId) {
+    function removeKidFromCar(kid, carId) {
         const carpoolData = {
-            kid_id: kidId,
+            kid_id: kid.id,
             car_id: carId
         }
         fetch(`/carpools/delete`, { 
@@ -54,20 +55,23 @@ const Cars = () => {
             body: JSON.stringify(carpoolData) })
             
             .then((r) => r.json())
-            .then((data) => console.log(data))
+            .then((data) => {
+                console.log(data)
+                dispatch(fetchCars())
+            })
     }
    
     const mappedCars = cars && cars.map((car) => {
         
         const mappedKids = kids && kids.map((kid) => {
-         return  <button key={kid.id} onClick={(e) => addKidToCar(kid.id, car.id)}>Add {kid.name} to this car</button>   
+         return  <button key={kid.id} onClick={() => addKidToCar(kid, car.id)}>Add {kid.name} to this car</button>   
         })
         
         const time = car.dismissal_time && car.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
         const mappedCarKids = car.kids.map((kid) => {
             if(kids && kids.find(k => k.id === kid.id)) {
-            return <button key={kid.id} onClick={(e) => removeKidFromCar(kid.id, car.id)}>Remove {kid.name} from this car</button> 
+            return <button key={kid.id} onClick={() => removeKidFromCar(kid, car.id)}>Remove {kid.name} from this car</button> 
             }
          })
        

@@ -1,33 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { createAction } from "@reduxjs/toolkit";
-
-// export const signupUser = createAction('users/signupUser', (data) => {
-//     console.log(data)
-//     return data
-// })
-
-// export const loginUser = createAsyncThunk('user/login', async (user) => {
-//     try { const userLogin = await fetch('login', {
-//         method: "POST",
-//         headers: {
-//             "Content-Type": "application/json"
-//         },
-//         body: JSON.stringify(user)
-//     })
-    
-//     const data = await userLogin.json()
-
-//     if(data) {
-//         return data
-//     } else {
-//         return data.error
-//     }}
-//     catch(error) {
-//         throw new Error(error)
-//     }
-    
-// })
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
     const userLogout = await fetch(`/logout`, {
@@ -89,6 +61,7 @@ export const usersSlice = createSlice({
         isSuccess: false,
         isError: false,
         errorMessage: "",
+        loading: 'idle',
     },
     reducers: {
         clearState: (state) => {
@@ -103,30 +76,35 @@ export const usersSlice = createSlice({
             state.user = data.payload
         },
         loginUser: (state, data) => {
-            console.log(data.payload)
-
             state.user = data.payload
+        },
+        removeCar: (state, payload) => {
+            const filteredCars = state.user.cars.filter((car) => car.id !== payload.payload)
+            state.user.cars = filteredCars
+            return state
+        },
+        updateUserCar: (state, payload) => {
+            let patchedCar = state.user.cars.filter((car) => car.id == payload.payload.id)[0]
+            patchedCar = {...patchedCar,  
+                school: payload.payload.school, 
+                dimissal_time: payload.payload.dismissal_time,
+                seats_available: payload.payload.seats_available,
+                monday: payload.payload.monday,
+                tuesday: payload.payload.tuesday,
+                wedensday: payload.payload.wednesday,
+                thursday: payload.payload.thursday,
+                friday: payload.payload.friday}
+            state.user = {...state.user, cars: state.user.cars.map((c) => {
+                return c.id !== patchedCar.id ? c : patchedCar
+            })}
+            return state
+        },
+        showUserCar: (state, { payload }) => {
+            state.user = {...state.user, cars: [...state.user.cars, payload]}
+            return state
         }
     },
     extraReducers: {
-
-    //   [loginUser.fulfilled]: (state, { payload }) => {
-    //     console.log(payload)
-    //       state.user = payload;
-    //       state.isFetching = false;
-    //       state.isSuccess = true;
-    //       state.isError = false;
-    //       console.log("login fulfilled", state)
-    //       return state;
-    //   },
-    //   [loginUser.rejected]: (state) => {
-    //       state.isFetching = false;
-    //       state.isError = true;
-    //       state.errorMessage = "Invalid user name or password";
-    //   },
-    //   [loginUser.pending]: (state) => {
-    //       state.isFetching = true;
-    //   }, 
     [fetchUser.fulfilled]: (state, { payload }) => {
         console.log(payload)
         state.user = payload;
@@ -135,7 +113,6 @@ export const usersSlice = createSlice({
         return state;
       },
     [fetchUser.rejected]: (state, { payload }) => {
-        console.log("rejected")
         state.isFetching = false;
         state.isError = true;
         state.errorMessage = payload;
@@ -154,6 +131,7 @@ export const usersSlice = createSlice({
     [postKid.fulfilled]: (state, { payload }) => {
         console.log(payload)
         console.log(state.kids)
+        state.loading = 'succeeded';
         state.user = {...state.user, kids: [...state.user.kids, payload]};
         state.isFetching = false;
         state.isSuccess = true;
@@ -162,6 +140,7 @@ export const usersSlice = createSlice({
     [removeKid.fulfilled]: (state, { payload }) => {
         const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
         state.user.kids = filteredKids
+        state.loading = 'succeeded';
         state.isFetching = false;
         state.isSuccess = true;
         state.isError = false;
@@ -174,6 +153,7 @@ export const usersSlice = createSlice({
             return k.id !== patchedKid.id ? k : patchedKid
         })}
         state.isFetching = false;
+        state.loading = 'succeeded';
         state.isSuccess = true;
         console.log("in the reducer", payload)
         return state;
@@ -181,5 +161,5 @@ export const usersSlice = createSlice({
     }
 })
   
-export const { clearState, signupUser, loginUser } = usersSlice.actions;
+export const { clearState, signupUser, loginUser, removeCar, updateUserCar, showUserCar } = usersSlice.actions;
 export const userSelector = state => state.users

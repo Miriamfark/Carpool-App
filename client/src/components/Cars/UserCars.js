@@ -2,19 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Link, Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import NewCarForm from './NewCarForm'
-import { deleteCar, fetchCars } from '../../redux/carsSlice'
+import { deleteCar } from '../../redux/carsSlice'
+import { removeCar, fetchUser } from '../../redux/usersSlice'
 
 const UserCars = () => {
 
-    const cars = useSelector((state) => state.users.user.cars)
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchUser())
+  }, [])
+
+    const cars = useSelector((state) => state.users.user.cars)
+    console.log(cars)
+
 
     const [showForm, setShowForm] = useState(false)
-
-    useEffect(() => {
-      dispatch(fetchCars())
-    }, [dispatch, cars?.length])
 
     function toggleCarForm() {
       setShowForm(!showForm)
@@ -37,7 +40,10 @@ const UserCars = () => {
                     { car.friday === "friday" ? <p>Friday</p> : null }
                 </ul>
                 <Link to={`${car.id}`}>Edit</Link>
-            <button onClick={() =>dispatch(deleteCar(car.id))}>Remove</button>
+            <button onClick={() =>{
+              dispatch(deleteCar(car.id))
+              dispatch(removeCar(car.id))
+              }}>Remove</button>
             
             </div>
         )

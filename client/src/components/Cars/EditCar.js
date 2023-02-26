@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateCar } from '../../redux/carsSlice';
+import { updateUserCar } from '../../redux/usersSlice';
 
 const EditCar = ({ cars }) => {
 
@@ -34,6 +35,7 @@ const EditCar = ({ cars }) => {
             friday
         }
         dispatch(updateCar(updatedCar))
+        dispatch(updateUserCar(updatedCar))
         navigate('/my_cars')
     }
 

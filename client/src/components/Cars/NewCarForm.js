@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { postCar } from '../../redux/carsSlice';
-import { fetchUser } from '../../redux/usersSlice';
+import { showUserCar } from '../../redux/usersSlice';
 
 const NewCarForm = ({ showForm, setShowForm }) => {
 
     const user = useSelector((state) => state.users.user)
     const dispatch = useDispatch()
 
-    // const [formData, setFormData] = useState({
-    //     driver: user.name,
-    //     school: 
-    // })
 
     const [driver, setDriver] = useState(user.name)
     const [school, setSchool] = useState("")
@@ -36,15 +32,13 @@ const NewCarForm = ({ showForm, setShowForm }) => {
             thursday,
             friday
         }
-        console.log(seatsAvailable)
         dispatch(postCar(carData))
+        dispatch(showUserCar(carData))
         setDriver("")
         setSchool("")
         setSeatsAvailable(0)
         setTime("")
         setShowForm(!showForm)
-        //is the fetchUser working? when add a car it does not update the UserInfo component without a refresh
-        dispatch(fetchUser())
     }
 //handleChange(e){
     //setFormData( {…formData,
