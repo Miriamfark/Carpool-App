@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeKid, updateKid } from '../../redux/usersSlice';
+import { removeKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
 
 const KidsList = () => {
@@ -10,20 +10,12 @@ const KidsList = () => {
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
-    // const [editForm, setEditForm] = useState(false)
     const [name, setName] = useState("")
     const [school, setSchool] = useState("")
     const [dismissal, setDismissal] = useState("")
 
     function handleDeleteKid(id) {
-        //cleanup the form
-        // setEditForm(!editForm)
         dispatch(removeKid(id))
-        //navigate to /kids
-    }
-
-    function handleUpdateKid(kid) {
-        dispatch(updateKid(kid))
     }
 
     function toggleKidForm() {

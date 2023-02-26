@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState } from 'react'
+import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
-import { loginUser, fetchUser } from '../../redux/usersSlice';
+import { loginUser } from '../../redux/usersSlice';
 
 
 const LoginForm = () => {

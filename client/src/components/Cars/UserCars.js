@@ -11,7 +11,7 @@ const UserCars = () => {
 
   useEffect(() => {
     dispatch(fetchUser())
-  }, [])
+  }, [dispatch])
 
     const cars = useSelector((state) => state.users.user.cars)
 

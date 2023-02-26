@@ -8,7 +8,7 @@ import NavBar from './components/NavBar';
 import Cars from './components/Cars/Cars';
 import UserInfo from './components/UserInfo';
 import UserCars from './components/Cars/UserCars';
-import { fetchUser, clearState } from './redux/usersSlice';
+import { fetchUser } from './redux/usersSlice';
 import EditCar from './components/Cars/EditCar';
 import EditKid from './components/Kids/EditKid'
 import KidsList from './components/Kids/KidsList'

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCars, addKidToCarpool } from '../../redux/carsSlice';
+import { fetchCars } from '../../redux/carsSlice';
 import NewCarForm from './NewCarForm';
 import SearchBar from '../Search/SearchBar';
 
@@ -9,7 +9,6 @@ const Cars = () => {
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
-    // const [carpool, setCarpool] = useState({})
 
     const { cars, loading } = useSelector((state) => state.cars)
     const kids = useSelector((state) => state.users.user.kids)
@@ -37,7 +36,6 @@ const Cars = () => {
                     alert(data.error)
                 } else {
                     dispatch(fetchCars())
-                    // setCarpool(data.carpool)
                 }
             })
     }

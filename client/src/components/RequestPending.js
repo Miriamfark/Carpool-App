@@ -15,7 +15,7 @@ const RequestPending = () => {
             setStatusMessage(`${data.kid.name} would like to join your carpool.`)
 
         })
-    }, [])
+    }, [id.id])
 
    const car = carpool.car
    const kid = carpool.kid
