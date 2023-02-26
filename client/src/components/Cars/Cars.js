@@ -59,14 +59,14 @@ const Cars = () => {
    
     const mappedCars = cars && cars.map((car) => {
         
-        const mappedKids = kids.map((kid) => {
+        const mappedKids = kids && kids.map((kid) => {
          return  <button key={kid.id} onClick={(e) => addKidToCar(kid.id, car.id)}>Add {kid.name} to this car</button>   
         })
         
         const time = car.dismissal_time && car.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
         const mappedCarKids = car.kids.map((kid) => {
-            if(kids.find(k => k.id === kid.id)) {
+            if(kids && kids.find(k => k.id === kid.id)) {
             return <button key={kid.id} onClick={(e) => removeKidFromCar(kid.id, car.id)}>Remove {kid.name} from this car</button> 
             }
          })

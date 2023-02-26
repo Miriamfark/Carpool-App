@@ -3,7 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { updateCar } from '../../redux/carsSlice';
 
-const EditCar = ({ cars, user }) => {
+const EditCar = ({ cars }) => {
 
     const id = useParams()
     const dispatch = useDispatch()

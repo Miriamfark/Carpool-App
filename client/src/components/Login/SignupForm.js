@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
-import { signupUser, clearState, userSelector } from '../../redux/usersSlice';
+import { signupUser } from '../../redux/usersSlice';
+import { useNavigate } from 'react-router-dom';
 
 function SignupForm() {
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [name, setName] = useState("")
     const [password, setPassword] = useState("")
@@ -34,7 +36,7 @@ function SignupForm() {
             return r.json().then((data) => dispatch(signupUser(data)))
         }
     })
-    
+    navigate('/me')
 }
 
   return (

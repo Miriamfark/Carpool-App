@@ -19,16 +19,54 @@ class CarpoolsController < ApplicationController
         else
             car.update(seats_available: car.seats_available - 1)
             carpool = Carpool.create!(carpool_params)
+            if carpool
+                KidAddedMailer.carpool_request(carpool, car, kid).deliver_now
+            end
             render json: car, status: :created 
         end
     end
 
     def destroy
         carpool = Carpool.find_by(car_id: params[:car_id], kid_id: params[:kid_id])
+        if carpool 
+            KidAddedMailer.kid_left_carpool(carpool).deliver_now
+        end
         carpool.destroy
         car = Car.find(params[:car_id]) 
         car.update(seats_available: car.seats_available + 1)
         render json: car, status: :ok
+    end
+
+    def show 
+        carpool = Carpool.find(params[:id])
+        render json: carpool
+    rescue ActiveRecord::RecordNotFound
+        render json: { error: "Not found" }, status: :not_found
+    end
+
+    def update 
+       carpool = Carpool.find(params[:id])
+       carpool.update!(carpool_params)
+       if carpool 
+          KidAddedMailer.request_accepted(carpool).deliver_now
+       end
+       render json: carpool 
+    rescue ActiveRecord::RecordNotFound
+        render json: { error: "Not found" }, status: :not_found
+    end
+
+    def reject 
+        carpool = Carpool.find(params[:id])
+        if car = Car.find(carpool.car_id)
+            car.update(seats_available: car.seats_available + 1)
+        end
+        if carpool 
+            KidAddedMailer.request_rejected(carpool).deliver_now
+        end
+        carpool.destroy
+        head :no_content
+    rescue ActiveRecord::RecordNotFound
+        render json: { error: "Not found" }, status: :not_found
     end
 
     private 

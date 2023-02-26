@@ -30,7 +30,6 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Don't care if the mailer can't send.
 
   config.action_mailer.perform_caching = false
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
@@ -50,7 +49,7 @@ address:              'smtp.gmail.com',
 port:                 587,
 # domain:               'example.com',
 user_name:            'thecarpoolapp75',
-password:             'Sparkle9818',
+password:             'bxldsztzuwgfkand',
 authentication:       'plain',
 enable_starttls_auto: true  }
 

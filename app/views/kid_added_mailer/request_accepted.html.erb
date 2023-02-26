@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1> Your request for <%= @carpool.kid.name %> to join <%= @carpool.car.user.name %> 's car was accepted! </h1>
+    <p>Carpool Details:</p>
+    <p>Time: <%= @carpool.car.dismissal_time %></p>
+    <p>School: <%= @carpool.car.school %> </p>
+  </body>
+</html>

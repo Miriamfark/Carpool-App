@@ -12,6 +12,7 @@ import { fetchUser, clearState } from './redux/usersSlice';
 import EditCar from './components/Cars/EditCar';
 import EditKid from './components/Kids/EditKid'
 import KidsList from './components/Kids/KidsList'
+import RequestPending from './components/RequestPending';
 
 function App() {
 
@@ -38,6 +39,7 @@ function App() {
         <Route path="/my_cars" element={<UserCars />} >
           <Route path=":carId" element={<EditCar cars={user.cars} user={user}/>} />
         </Route>
+        <Route path="/request_pending/:id" element={<RequestPending />} />
       </Routes>
     </div>
   );
