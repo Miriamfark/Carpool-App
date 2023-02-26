@@ -11,8 +11,12 @@ const RequestPending = () => {
     useEffect(() => {
         fetch(`/carpools/${id.id}`)
         .then((r) => r.json())
-        .then((data) => setCarpool(data))
-        setStatusMessage(`${kid && kid.name} would like to join your carpool.`)
+        .then((data) => {
+            setCarpool(data)
+            console.log(data)
+            setStatusMessage(`${data.kid.name} would like to join your carpool.`)
+
+        })
     }, [])
 
    const car = carpool.car
