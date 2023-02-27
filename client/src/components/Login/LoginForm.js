@@ -2,7 +2,15 @@ import React, { useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/usersSlice';
-
+import {
+    MDBBtn,
+    MDBContainer,
+    MDBRow,
+    MDBCol,
+    MDBIcon,
+    MDBInput
+  }
+  from 'mdb-react-ui-kit';
 
 const LoginForm = () => {
 
@@ -29,7 +37,7 @@ const LoginForm = () => {
         })
         .then((r) => {
             if (!r.ok) {
-                return r.json().then((e) => setErrors(Object.entries(e).toString()))
+                return r.json().then((e) => setErrors(Object.values(e)))
             } else {
                 return r.json().then((data) => dispatch(loginUser(data)))
             }
@@ -40,29 +48,34 @@ const LoginForm = () => {
     }
 
   return (
-    <div>
+    <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
+        <p className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Log in</p>
         <form onSubmit={handleLoginSubmit}>
-            <div>
-                <label>Username</label>
-                <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                ></input>
-            </div>
-            <div>
-                <label>Password</label>
-                <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                ></input>
-            </div>
-            <div>
-                <input type="submit"></input>
-            </div>
+        <MDBInput 
+            wrapperClass='mb-4 mx-5 w-100' 
+            size="lg"
+            label='User Name' 
+            id='form1' 
+            type='text'  
+            value={name}              
+            onChange={(e) => setName(e.target.value)}
+        />
+        <MDBInput 
+            wrapperClass='mb-4 mx-5 w-100' 
+            size="lg"            
+            label='Password' 
+            id='form2'
+            value={password} 
+            type='password'
+            onChange={(e) => setPassword(e.target.value)}
+        />
+        <MDBBtn 
+        className="mb-4 px-5 mx-5 w-100"
+        color='info' 
+        size='lg'
+        >Log in</MDBBtn>
         </form>
-        { errors ? <h5>{errors}</h5> : null }
+        { errors ? <h5 class="text-danger">{errors}</h5> : null }
     </div>
   )
 }
