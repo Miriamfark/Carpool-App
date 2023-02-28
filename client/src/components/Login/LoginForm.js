@@ -4,9 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/usersSlice';
 import {
     MDBBtn,
-    MDBContainer,
-    MDBRow,
-    MDBCol,
     MDBIcon,
     MDBInput
   }
@@ -49,7 +46,7 @@ const LoginForm = () => {
 
   return (
     <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
-        <p className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>Log in</p>
+        <p className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}><MDBIcon fas icon="crow fa-3x me-3" style={{ color: '#709085' }}/>Log in</p>
         <form onSubmit={handleLoginSubmit}>
         <MDBInput 
             wrapperClass='mb-4 mx-5 w-100' 
@@ -70,9 +67,8 @@ const LoginForm = () => {
             onChange={(e) => setPassword(e.target.value)}
         />
         <MDBBtn 
-        className="mb-4 px-5 mx-5 w-100"
-        color='info' 
-        size='lg'
+            className="mb-4 px-5 mx-5 w-100"
+            size='lg'
         >Log in</MDBBtn>
         </form>
         { errors ? <h5 class="text-danger">{errors}</h5> : null }

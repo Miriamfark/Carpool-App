@@ -26,16 +26,17 @@ const Login = () => {
                 </div>     
     { showSignup ? (
             <div>
-                <p>Get started by signing up.</p>
                 <SignupForm /> 
-                <p>Already have an account?</p>
-                <button  onClick={()=>setShowSignup(!showSignup)}>Log In Here</button>
+                <p className='ms-5'>Already have an account?  
+                    <MDBBtn onClick={()=>setShowSignup(!showSignup)} >Log In Here</MDBBtn>
+                </p>
             </div>
         ) : (
             <div>
                 <LoginForm />
-                <p className='ms-5'>Don't have an account? <MDBBtn  onClick={()=>setShowSignup(!showSignup)} >Register Here</MDBBtn></p>
-                
+                <p className='ms-5'>Don't have an account?  
+                    <MDBBtn onClick={()=>setShowSignup(!showSignup)} >Register Here</MDBBtn>
+                </p>
             </div>
         )
         }
@@ -43,7 +44,7 @@ const Login = () => {
 
             <MDBCol sm='6' className='d-none d-sm-block px-0'>
                 <img src="https://www.care.com/c/wp-content/uploads/sites/2/2021/04/LaurenGarcia-201909252109059744-1620x1080.jpg.optimal.jpg"
-                alt="Login image" className="w-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
+                alt="Login image" className="w-100 h-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
             </MDBCol>
         </MDBRow>
     </MDBContainer>

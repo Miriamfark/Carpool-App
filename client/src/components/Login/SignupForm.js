@@ -2,6 +2,12 @@ import React, { useState } from 'react';
 import { useDispatch } from "react-redux";
 import { signupUser } from '../../redux/usersSlice';
 import { useNavigate } from 'react-router-dom';
+import {
+    MDBBtn,
+    MDBIcon,
+    MDBInput
+  }
+  from 'mdb-react-ui-kit';
 
 function SignupForm() {
 
@@ -31,7 +37,7 @@ function SignupForm() {
     })
     .then((r) => {
         if(!r.ok) {
-            return r.json().then((e) => setErrors(Object.entries(e).toString()))
+            return r.json().then((e) => setErrors(Object.values(e).toString()))
         } else {
             return r.json().then((data) => dispatch(signupUser(data)))
         }
@@ -40,47 +46,51 @@ function SignupForm() {
 }
 
   return (
-    <div className="row container valign-wrapper">
-        <form onSubmit={handleSubmit} className="col s8">
-            <div className="row">
-                <div className="input-field col s8">
-                    <label>Username </label>
-                    <input 
-                        type="text"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                    ></input>
-                </div>
-                <div className="input-field col s8">
-                    <label>Password</label>
-                    <input 
-                        type="password"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}
-                    ></input>
-                </div>
-                <div className="input-field col s8">
-                    <label>Confirm Password</label>
-                    <input 
-                        type="password"
-                        value={passwordConfirmation}
-                        onChange={(e) => setPasswordConfirmation(e.target.value)}
-                     ></input>
-                </div>
-                <div>
-                    <label>Email Address</label>
-                    <input
-                    type="email"
-                    value={email}
-                    onChange={(e)=> setEmail(e.target.value)}
-                    ></input>
-                </div>
-                <div className="input-field col s8">
-                    <input className="btn" type="submit" value="Sign Up" />
-                </div>
-            </div>
+    <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
+        <p className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}><MDBIcon fas icon="crow fa-3x me-3" style={{ color: '#709085' }}/>Sign Up</p>
+        <form onSubmit={handleSubmit}>
+                <MDBInput 
+                    wrapperClass='mb-4 mx-5 w-100' 
+                    size="lg"
+                    label='User Name' 
+                    id='form1' 
+                    type='text'  
+                    value={name}              
+                    onChange={(e) => setName(e.target.value)}
+                />
+                <MDBInput 
+                    wrapperClass='mb-4 mx-5 w-100' 
+                    size="lg"            
+                    label='Password' 
+                    id='form2'
+                    value={password} 
+                    type='password'
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <MDBInput 
+                    wrapperClass='mb-4 mx-5 w-100' 
+                    size="lg"            
+                    label='Confirm Password' 
+                    id='form2'
+                    value={passwordConfirmation} 
+                    type='password'
+                    onChange={(e) => setPasswordConfirmation(e.target.value)}
+                />
+                <MDBInput 
+                    wrapperClass='mb-4 mx-5 w-100' 
+                    size="lg"            
+                    label='Email Address' 
+                    id='form2'
+                    value={email} 
+                    type='email'
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <MDBBtn 
+                    className="mb-4 px-5 mx-5 w-100"
+                    size='lg'
+                >Sign Up</MDBBtn>
         </form>
-        { errors ? <h5>{errors}</h5> : null }
+        { errors ? <h5 class="text-danger">{errors}</h5> : null }
     </div>
   )
 }

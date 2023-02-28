@@ -80,7 +80,7 @@ const EditCar = ({ cars }) => {
                 <label for="Friday"> Friday</label>
             </div>
             
-            <input type="submit" value="Edit"></input>
+            <input type="submit" value="Save"></input>
         </form>
     </div>
   )

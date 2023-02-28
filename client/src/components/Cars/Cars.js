@@ -4,7 +4,7 @@ import { fetchCars } from '../../redux/carsSlice';
 import CarCard from './CarCard';
 import NewCarForm from './NewCarForm';
 import SearchBar from '../Search/SearchBar';
-import { Box, Button, Paper, Grid } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const Cars = () => {

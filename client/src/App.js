@@ -27,7 +27,7 @@ function App() {
   if (!user) return <Login />;
 
   return (
-    <div className='App'>
+    <div>
       <NavBar /> 
       <Routes>
         <Route path="/cars" element={<Cars />} />
