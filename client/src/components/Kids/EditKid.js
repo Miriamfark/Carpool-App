@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { updateKid } from '../../redux/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser, updateKid } from '../../redux/usersSlice';
 
 const EditKid = ({ kids }) => {
 
     const id = useParams()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const kid = kids.filter((kid) => kid.id == id.kidId)[0]
+
+    const kid = kids && kids.filter((kid) => kid.id == id.kidId)[0]
 
     const [name, setName] = useState(kid.name)
     const [school, setSchool] = useState(kid.school)
@@ -53,7 +54,7 @@ const EditKid = ({ kids }) => {
                 onChange={(e)=> setDismissal(e.target.value)}
                 ></input>
             </div>
-            <input type="submit" value="Edit"></input>
+            <input type="submit" value="Save Changes"></input>
         </form>
     </div>
   )

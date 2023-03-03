@@ -28,7 +28,11 @@ export const filterCars = createAsyncThunk('cars/filterCars', async (query) => {
         body: JSON.stringify(query)
     })
     const data = await cars.json()
-    return data
+    const payload = {
+        cars: data,
+        error: query
+    }
+    return payload
 })
 
 export const updateCar = createAsyncThunk('cars/updateCar', async (updatedCar) => {
@@ -82,10 +86,16 @@ export const carsSlice = createSlice({
             state.isFetching = true;
           }, 
         [filterCars.fulfilled]: (state, { payload }) => {
-            state.cars = payload
+            if(payload.cars.length > 0) {
+              state.cars = payload.cars
             state.isFetching = false;
             state.isSuccess = true;
-            return state;
+            return state;  
+            } else {
+                state.cars = payload.cars
+                state.errorMessage = `Sorry, no results were found for ${Object.values(payload.error)}`
+            }
+            
         },
         [postCar.fulfilled]: (state, { payload }) => {
             state.cars = [...state.cars, payload];

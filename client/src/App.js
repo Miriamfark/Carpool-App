@@ -25,7 +25,7 @@ function App() {
   }, [dispatch, user?.id])
 
   if (!user) return <Login />;
-
+  
   return (
     <div>
       <NavBar /> 

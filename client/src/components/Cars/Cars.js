@@ -11,16 +11,16 @@ const Cars = () => {
 
     const dispatch = useDispatch()
 
-    const [showForm, setShowForm] = useState(false)
-
-    const { cars, loading } = useSelector((state) => state.cars)
-    const kids = useSelector((state) => state.users.user.kids)
-
     useEffect(() => {
         dispatch(fetchCars())
-    }, [cars.length, dispatch, loading])
+    }, [dispatch])
+
+    const [showForm, setShowForm] = useState(false)
+
+    const cars = useSelector((state) => state.cars)
+    const kids = useSelector((state) => state.users.user.kids)
    
-    const mappedCars = cars && cars.map((car) => {
+    const mappedCars = cars.cars && cars.cars.map((car) => {
         return(
         <Grid item style={{display: 'flex'}}>
             <CarCard car={car} kids={kids}/>

@@ -14,6 +14,7 @@ const NewKidForm = ({
     const dispatch = useDispatch()
 
     function handleNewKidSubmit(e) {
+        console.log("in submit")
         e.preventDefault()
         const kid = {
             name,

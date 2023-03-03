@@ -129,6 +129,7 @@ export const usersSlice = createSlice({
         return state;
         },
     [removeKid.fulfilled]: (state, { payload }) => {
+        console.log(payload)
         const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
         state.user.kids = filteredKids
         state.isFetching = false;

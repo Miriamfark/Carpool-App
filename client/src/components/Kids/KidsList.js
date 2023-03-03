@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { Link, Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeKid } from '../../redux/usersSlice';
+import { removeKid, updateKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
+import KidCard from './KidCard';
+import { Grid, Box, Button } from '@mui/material';
 
 const KidsList = () => {
 
@@ -15,6 +17,7 @@ const KidsList = () => {
     const [dismissal, setDismissal] = useState("")
 
     function handleDeleteKid(id) {
+        console.log("in delete")
         dispatch(removeKid(id))
     }
 
@@ -26,22 +29,35 @@ const KidsList = () => {
     const mappedKids = kids && kids.map((kid) => {
 
         const time = kid.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-
-        return <li key={kid.id}>
-            Name: {kid.name}   School: {kid.school}  Dismissal Time: {time}
-            <Link to={`${kid.id}`}>Edit</Link>
-            <button onClick={() => handleDeleteKid(kid.id)}>Remove</button>
-            </li>
+        return(
+            <Grid key={kid.id} item style={{display: 'flex'}}> 
+                <KidCard 
+                    key={kid.id}
+                    kid={kid}
+                    onDelete={handleDeleteKid}
+                />
+            </Grid> 
+        )
     })
 
   return (
-    <div>
-        My Kids:
-        <ul>
-            {mappedKids}
+    <div className="ms-5 me-5 mt-5">
+        <h6>My Kids:</h6>
+        <Box className="ps-5 pt-5 pb-5 mb-5 mt-5 ms-5 me-5 border border-3">
+            <Grid 
+                container 
+                // spacing={8}
+                direction="row"
+                // justifyContent="space-evenly"
+                alignItems="stretch"
+                >
+                    {mappedKids}
+                </Grid>
+        </Box>
             <Outlet />
-        </ul>
-        <button onClick={toggleKidForm}>Add Kid</button>
+    
+        <button type="button" className="btn btn-secondary" onClick={toggleKidForm}>Add Kid</button>
+
         { showForm ? <NewKidForm 
         name={name}
         setName={setName}
