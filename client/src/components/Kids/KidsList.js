@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { removeKid, updateKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
 import KidCard from './KidCard';
-import { Grid, Box, Button } from '@mui/material';
+import { Grid, Box } from '@mui/material';
 
 const KidsList = () => {
 
@@ -17,7 +17,6 @@ const KidsList = () => {
     const [dismissal, setDismissal] = useState("")
 
     function handleDeleteKid(id) {
-        console.log("in delete")
         dispatch(removeKid(id))
     }
 
@@ -41,20 +40,19 @@ const KidsList = () => {
     })
 
   return (
-    <div className="ms-5 me-5 mt-5">
+    <div className="ms-5 me-5 mt-3 text-center">
         <h6>My Kids:</h6>
-        <Box className="ps-5 pt-5 pb-5 mb-5 mt-5 ms-5 me-5 border border-3">
+        <Box className="ps-5 pt-3 pb-3 mb-3 mt-5 ms-5 me-5 border border-3">
             <Grid 
                 container 
-                // spacing={8}
                 direction="row"
-                // justifyContent="space-evenly"
                 alignItems="stretch"
                 >
                     {mappedKids}
                 </Grid>
-        </Box>
             <Outlet />
+        </Box>
+            
     
         <button type="button" className="btn btn-secondary" onClick={toggleKidForm}>Add Kid</button>
 

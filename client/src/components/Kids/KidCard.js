@@ -22,14 +22,6 @@ const KidCard = ({ kid, onDelete }) => {
             <Button size="small" onClick={() => onDelete(kid.id)}>Remove</Button>
          </CardActions> 
     </Card>
-//     <MDBCard className='w-50' key={kid.id}>
-//     <MDBCardBody>
-//       <MDBCardTitle>{kid.name}</MDBCardTitle>
-//       <MDBCardText>School: {kid.school}  Dismissal Time: {time}</MDBCardText>
-//       <MDBBtn href='#' onClick={() => onDelete(kid.id)}>Remove</MDBBtn>
-//       <Link to={`/kids/${kid.id}`}>Edit</Link>
-//     </MDBCardBody>
-//   </MDBCard>
   )
 }
 

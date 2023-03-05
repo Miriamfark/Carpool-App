@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser, updateKid } from '../../redux/usersSlice';
+import { useDispatch } from 'react-redux';
+import { updateKid } from '../../redux/usersSlice';
 
 const EditKid = ({ kids }) => {
 
@@ -11,9 +11,9 @@ const EditKid = ({ kids }) => {
 
     const kid = kids && kids.filter((kid) => kid.id == id.kidId)[0]
 
-    const [name, setName] = useState(kid.name)
-    const [school, setSchool] = useState(kid.school)
-    const [dismissal, setDismissal] = useState(kid.dismissal_time)
+    const [name, setName] = useState(kid && kid.name)
+    const [school, setSchool] = useState(kid && kid.school)
+    const [dismissal, setDismissal] = useState(kid && kid.dismissal_time)
 
     function handleUpdateKid(e) {
         e.preventDefault()
@@ -28,35 +28,38 @@ const EditKid = ({ kids }) => {
     }
 
   return (
-    <div>
-        <form onSubmit={handleUpdateKid}>
-            <div>
-                <label>Kid's Name:</label>
-                <input
-                type="text"
-                defaultValue={kid.name}
-                onChange={(e)=>setName(e.target.value)}
-                ></input>
-            </div>
-            <div>
-                <label>School:</label>
-                <input
-                type="text"
-                defaultValue={kid.school}
-                onChange={(e) => setSchool(e.target.value)}
-                ></input>
-            </div>
-            <div>
-                <label>Dismissal:</label>
-                <input
-                type="time"
-                defaultValue={kid.dismissal_time}
-                onChange={(e)=> setDismissal(e.target.value)}
-                ></input>
-            </div>
-            <input type="submit" value="Save Changes"></input>
-        </form>
-    </div>
+     <div className="mt-5 mb-3 pe-5">
+         <form onSubmit={handleUpdateKid}>
+             <div>
+                 <label>Kid's Name:</label>
+                 <input
+                 className="form-control"
+                 type="text"
+                 defaultValue={kid.name}
+                 onChange={(e)=>setName(e.target.value)}
+                 ></input>
+             </div>
+             <div>
+                 <label>School:</label>
+                 <input
+                 className="form-control"
+                 type="text"
+                 defaultValue={kid.school}
+                 onChange={(e) => setSchool(e.target.value)}
+                 ></input>
+             </div>
+             <div>
+                 <label>Dismissal:</label>
+                 <input
+                 className="form-control"
+                 type="time"
+                 defaultValue={kid.dismissal_time}
+                 onChange={(e)=> setDismissal(e.target.value)}
+                 ></input>
+             </div>
+             <input  className="btn btn-primary mt-3" type="submit" value="Save Changes"></input>
+         </form>
+     </div>
   )
 }
 

@@ -28,11 +28,13 @@ const NewKidForm = ({
     }
 
   return (
-    <div>
+    <div className="mt-5 mb-3 pe-5">
         <form onSubmit={handleNewKidSubmit}>
             <div>
                 <label>Kid's Name:</label>
                 <input
+                                 className="form-control"
+
                 type="text"
                 value={name}
                 onChange={(e)=>setName(e.target.value)}
@@ -41,20 +43,24 @@ const NewKidForm = ({
             <div>
                 <label>School:</label>
                 <input
+                                 className="form-control"
+
                 type="text"
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
                 ></input>
             </div>
             <div>
-                <label>Dismissal:</label>
+                <label>Dismissal Time:</label>
                 <input
+                                 className="form-control"
+
                 type="time"
                 value={dismissal}
                 onChange={(e)=> setDismissal(e.target.value)}
                 ></input>
             </div>
-            <input type="submit"></input>
+            <input className="btn btn-primary mt-3" type="submit"></input>
         </form>
     </div>
   )
