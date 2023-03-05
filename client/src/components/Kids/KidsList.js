@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { removeKid, updateKid } from '../../redux/usersSlice';
+import { removeKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
 import KidCard from './KidCard';
 import { Grid, Box } from '@mui/material';
@@ -9,6 +9,7 @@ import { Grid, Box } from '@mui/material';
 const KidsList = () => {
 
     const kids = useSelector((state) => state.users.user.kids)
+  
     const dispatch = useDispatch()
 
     const [showForm, setShowForm] = useState(false)
@@ -27,7 +28,7 @@ const KidsList = () => {
 
     const mappedKids = kids && kids.map((kid) => {
 
-        const time = kid.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+        const time = kid && kid.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
         return(
             <Grid key={kid.id} item style={{display: 'flex'}}> 
                 <KidCard 
@@ -55,7 +56,6 @@ const KidsList = () => {
             
     
         <button type="button" className="btn btn-secondary" onClick={toggleKidForm}>Add Kid</button>
-
         { showForm ? <NewKidForm 
         name={name}
         setName={setName}
@@ -63,6 +63,7 @@ const KidsList = () => {
         setSchool={setSchool}
         dismissal={dismissal}
         setDismissal={setDismissal}
+        setShowForm={setShowForm}
         /> : null }
     </div>
   )

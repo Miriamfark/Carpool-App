@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { postKid } from '../../redux/usersSlice';
 
 const NewKidForm = ({
@@ -8,13 +8,19 @@ const NewKidForm = ({
     name,
     setName,
     dismissal,
-    setDismissal
+    setDismissal,
+    setShowForm
 }) => {
 
     const dispatch = useDispatch()
 
+    const errors = useSelector((state) => state.users.errorMessage)
+    
+    const mappedErrors = errors && errors.map((error) => {
+       return <span>{error}</span>
+    })
+
     function handleNewKidSubmit(e) {
-        console.log("in submit")
         e.preventDefault()
         const kid = {
             name,
@@ -30,6 +36,8 @@ const NewKidForm = ({
   return (
     <div className="mt-5 mb-3 pe-5">
         <form onSubmit={handleNewKidSubmit}>
+        { errors ? <h5 className="text-danger">{mappedErrors}</h5> : null}
+
             <div>
                 <label>Kid's Name:</label>
                 <input

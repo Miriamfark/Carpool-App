@@ -30,9 +30,9 @@ export const postKid = createAsyncThunk('user/addKid', async (kid) => {
     body: JSON.stringify(kid)
 })
 
-const data = await newKid.json()
-    return data
-       
+    const data = await newKid.json()
+    return data   
+
     })
 
 export const removeKid = createAsyncThunk('user/removeKid', async (id) => {
@@ -123,11 +123,15 @@ export const usersSlice = createSlice({
         return state;
         },
     [postKid.fulfilled]: (state, { payload }) => {
-        state.user = {...state.user, kids: [...state.user.kids, payload]};
-        state.isFetching = false;
-        state.isSuccess = true;
-        return state;
-        },
+        if(payload.id) {
+            state.user = {...state.user, kids: [...state.user.kids, payload]};
+            state.isFetching = false;
+            state.isSuccess = true;
+            return state;
+        } else {
+            state.errorMessage = payload.errors
+            return state
+        }},
     [removeKid.fulfilled]: (state, { payload }) => {
         console.log(payload)
         const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
