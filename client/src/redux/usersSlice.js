@@ -80,8 +80,9 @@ export const usersSlice = createSlice({
             return state
         },
         updateUserCar: (state, payload) => {
+            console.log(payload)
             let patchedCar = state.user.cars.filter((car) => car.id == payload.payload.id)[0]
-            patchedCar = {...patchedCar,  
+            patchedCar = {...patchedCar, 
                 school: payload.payload.school, 
                 dimissal_time: payload.payload.dismissal_time,
                 seats_available: payload.payload.seats_available,
@@ -96,6 +97,7 @@ export const usersSlice = createSlice({
             return state
         },
         showUserCar: (state, { payload }) => {
+            console.log(payload)
             state.user = {...state.user, cars: [...state.user.cars, payload]}
             return state
         }

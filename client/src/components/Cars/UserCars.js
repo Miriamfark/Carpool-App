@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import NewCarForm from './NewCarForm'
 import { deleteCar } from '../../redux/carsSlice'
 import { removeCar, fetchUser } from '../../redux/usersSlice'
+import { Grid, Box } from '@mui/material';
+import UserCarCard from './UserCarCard'
+
 
 const UserCars = () => {
 
@@ -23,38 +26,29 @@ const UserCars = () => {
 
     const mappedCars = cars && cars.map((car) => {
         return(
-                <div key={car.id}>
-                <p>Driver: {car.user && car.user.name}</p>
-                <p>School: {car.school}</p>
-                <p>Seats: {car.seats_available}</p>
-                <p>Time: {car.dismissal_time}</p>
-                <p>Kids in Carpool: {car.kids && car.kids.map((kid, index) => <span key={index}>{kid.name} </span>)}</p>
-                <ul>
-                    <h5>Days</h5>
-                    { car.monday === "monday" ? <p>Monday</p> : null }
-                    { car.tuesday === "tuesday" ? <p>Tuesday</p> : null }
-                    { car.wednesday === "wednesday" ? <p>Wednesday</p> : null }
-                    { car.thursday === "thursday" ? <p>Thursday</p> : null }
-                    { car.friday === "friday" ? <p>Friday</p> : null }
-                </ul>
-                <Link to={`${car.id}`}>Edit</Link>
-            <button onClick={() =>{
-              dispatch(deleteCar(car.id))
-              dispatch(removeCar(car.id))
-              }}>Remove</button>
-            
-            </div>
+            <UserCarCard 
+              key={car.id}
+              car={car}
+            />
         )
     })
 
     
   return (
-    <div>
-      {mappedCars}
-      <Outlet /> 
-      <button onClick={toggleCarForm}>Add New Car</button>
+    <div className="ms-5 me-5 mt-3 text-center">
+      <Box className="ps-5 pt-3 pb-3 mb-3 mt-5 ms-5 me-5 border border-3">
+        <Grid 
+          container 
+          direction="row"
+          alignItems="stretch"
+          >
+            {mappedCars}
+        </Grid>
+        <Outlet /> 
+      </Box>
+      
+      <button className="btn btn-secondary" onClick={toggleCarForm}>Add New Car</button>
       { showForm ? <NewCarForm showForm={showForm} setShowForm={setShowForm} /> : null }
-
     </div>
            
 

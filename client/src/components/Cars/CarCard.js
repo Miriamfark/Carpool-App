@@ -53,8 +53,6 @@ const CarCard = ({ car, kids }) => {
         return  <Button key={kid.id} onClick={() => addKidToCar(kid, car.id)}>Add {kid.name}</Button>   
        })
        
-       const time = car.dismissal_time && car.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-
        const mappedCarKids = car.kids.map((kid) => {
            if(kids && kids.find(k => k.id === kid.id)) {
            return <Button key={kid.id} onClick={() => removeKidFromCar(kid, car.id)}>Remove {kid.name}</Button> 

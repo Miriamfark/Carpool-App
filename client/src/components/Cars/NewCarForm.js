@@ -40,27 +40,25 @@ const NewCarForm = ({ showForm, setShowForm }) => {
         setTime("")
         setShowForm(!showForm)
     }
-//handleChange(e){
-    //setFormData( {…formData,
-        //[e.target.name]: e.target.value
-  // })
-//}
+
   return (
-    <div>
+    <div className="mt-5 mb-3 pe-5">
         <form onSubmit={handleAddCar}>
             <div>
                 <label>Driver</label>
                 <input 
+                className="form-control"
                 name="driver"
                 type="text"
                 defaultValue={user.name}
-                //handle change take in event and setFormData({...formData, })
                 onChange={(e) => setDriver(e.target.value)}
                 ></input>
             </div>
             <div>
                 <label>Seats Available</label>
                 <input
+                                className="form-control"
+
                 type="number"
                 value={seatsAvailable}
                 onChange={(e) => setSeatsAvailable(e.target.value)}
@@ -69,6 +67,8 @@ const NewCarForm = ({ showForm, setShowForm }) => {
             <div>
                 <label>School</label>
                 <input
+                                className="form-control"
+
                 type="text"
                 value={school}
                 onChange={(e) => setSchool(e.target.value)}
@@ -77,26 +77,66 @@ const NewCarForm = ({ showForm, setShowForm }) => {
             <div>
                 <label>Time</label>
                 <input
+                                className="form-control"
+
                 type="time"
                 value={time}
                 onChange={(e) => setTime(e.target.value)}
                 ></input>
             </div>
-            <div>
-                <h5>Days</h5>
-                <input type="checkbox" id="Monday" name="Monday" value="Monday" onChange={() => setMonday("monday")} />
+            <div className="pt-3 form-check text-start">
+            <h6>Days:</h6>
+                <input                     
+                className="form-check-input" 
+                type="checkbox" 
+                id="Monday" 
+                name="Monday" 
+                value="Monday" 
+                onChange={() => setMonday("monday")} />
                 <label for="Monday"> Monday</label> 
-                <input type="checkbox" id="Tuesday" name="Tuesday" value="Tuesday" onChange={() => setTuesday("tuesday")} />
+                <br/>
+
+                <input                     
+                className="form-check-input" 
+                type="checkbox" 
+                id="Tuesday" 
+                name="Tuesday" 
+                value="Tuesday" 
+                onChange={() => setTuesday("tuesday")} />
                 <label for="Tuesday"> Tuesday</label>
-                <input type="checkbox" id="Wednesday" name="Wednesday" value="Wednesday" onChange={() => setWednesday("wednesday")} />
+                <br/>
+
+                <input                     
+                className="form-check-input" 
+                type="checkbox" 
+                id="Wednesday" 
+                name="Wednesday" 
+                value="Wednesday" 
+                onChange={() => setWednesday("wednesday")} />
                 <label for="Wednesday"> Wednesday</label>
-                <input type="checkbox" id="Thursday" name="Thursday" value="Thursday" onChange={() => setThursday("thursday")} />
+                <br/>
+
+                <input                     
+                className="form-check-input" 
+                type="checkbox" 
+                id="Thursday" 
+                name="Thursday" 
+                value="Thursday" 
+                onChange={() => setThursday("thursday")} />
                 <label for="Thursday"> Thursday</label> 
-                <input type="checkbox" id="Friday" name="Friday" value="Friday" onChange={() => setFriday("friday")} />
+                <br/>
+
+                <input                     
+                className="form-check-input" 
+                type="checkbox" 
+                id="Friday" 
+                name="Friday" 
+                value="Friday" 
+                onChange={() => setFriday("friday")} />
                 <label for="Friday"> Friday</label>
             </div>
             
-            <input type="submit"></input>
+            <input className="btn btn-primary" type="submit"></input>
         </form>
     </div>
   )

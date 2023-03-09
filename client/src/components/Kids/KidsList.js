@@ -28,7 +28,6 @@ const KidsList = () => {
 
     const mappedKids = kids && kids.map((kid) => {
 
-        const time = kid && kid.dismissal_time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
         return(
             <Grid key={kid.id} item style={{display: 'flex'}}> 
                 <KidCard 
