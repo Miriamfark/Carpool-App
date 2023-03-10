@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const UserInfo = () => {
 
@@ -11,62 +11,66 @@ const UserInfo = () => {
     const navigate = useNavigate()
 
     const userKids = kids && kids.map((kid) => {
-
-        return <p key={kid.id}>
+        return <p className="card" key={kid.id}>
             {kid.name}
             </p>
       })
     
       const userCars = cars && cars.map((car) => {
-        return <div key={car.id}>
+        return <div className="card" key={car.id}>
             { car.monday === "monday" ? (
-                <>
-                    <p>Monday: {car.dismissal_time} </p>
+                <div>
+                    <span>Monday: {car.dismissal_time} from {car.school} - </span>
                     {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </>
+                </div>
             ) : null }
             { car.tuesday === "tuesday" ? (
-                <>
-                    <p>Tuesday: {car.dismissal_time} </p>
+                <div>
+                    <span>Tuesday: {car.dismissal_time} from {car.school} - </span>
                     {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </>
+                </div>
             ) : null }            
             { car.wednesday === "wednesday" ? (
-                <>
-                    <p>Wednesday: {car.dismissal_time} </p>
+                <div>
+                    <span>Wednesday: {car.dismissal_time} from {car.school} - </span>
                     {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </>
+                </div>
             ) : null }            
             { car.thursday === "thursday" ? (
-                <>
-                    <p>Thursday: {car.dismissal_time} </p>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </>
+                <div>
+                    <span>Thursday: {car.dismissal_time} from {car.school} - </span>
+                    {car.kids.map((kid) => <span key={kid.id}>with {kid.name} </span>)}
+                </div>
             ) : null }            
             { car.friday === "friday" ? (
-                <>
-                    <p>Friday: {car.dismissal_time} </p>
+                <div>
+                    <span>Friday: {car.dismissal_time} from {car.school} - </span>
                     {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </>
+                </div>
             ) : null }            
             </div>
       })
 
   return (
-    <div>
-        <div>
-            <h1>Welcome {user.name}!</h1>
+    <div className="container text-center">
+        <div className="p-3 mb-2 bg-info text-white">
+            <h1 className="display-3">Welcome {user.name}!</h1>
         </div>
-        <div>
-            <h3>My Kids:</h3>
+        <div className="container mb-2 bg-light">
+            <h3>{user.name}'s Kids:</h3>
             {userKids}
-            <button onClick={()=>navigate('/kids')}>Add Kid</button>
+            <div className="p-2 d-grid gap-2 col-3 mx-auto mb-5">
+                <button className="btn btn-primary " onClick={()=>navigate('/kids')}>Add Kid</button>
+            </div>
         </div>
-        <div>
-            <h3>My Driving Duties:</h3>
+        <div className="container bg-light">
+            <h3>{user.name}'s Driving Duties:</h3>
             {userCars}
-            <button onClick={()=>navigate('/my_cars')}>Add a Car</button>
+            <div className="p-2 d-grid gap-2 col-3 mx-auto mb-5">
+                <button className="btn btn-primary " onClick={()=>navigate('/my_cars')}>Add Car</button>
+            </div>
         </div>
+        <Link className="btn btn-secondary" to="/cars">Look for more carpools here!</Link>
     </div>
   )
 }

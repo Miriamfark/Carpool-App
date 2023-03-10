@@ -12,7 +12,7 @@ const RequestPending = () => {
         .then((r) => r.json())
         .then((data) => {
             setCarpool(data)
-            setStatusMessage(`${data.kid.name} would like to join your carpool.`)
+            setStatusMessage(`${data.kid && data.kid.name} would like to join your carpool.`)
 
         })
     }, [id.id])
@@ -58,23 +58,24 @@ const RequestPending = () => {
     
 
   return (
-    <div>
-        <div>
+    <div className="mt-4 ms-5 container bg-light text-center">
+        <div className="card-body">
             <p>Driver: {car && car.user.name}</p>
             <p>School: {car && car.school}</p>
             <p>Time: {car && car.dismissal_time}</p>
-            <ul>
-                <h5>Days</h5>
-                { car && car.monday === "monday" ? <p>Monday</p> : null }
-                { car && car.tuesday === "tuesday" ? <p>Tuesday</p> : null }
-                { car && car.wednesday === "wednesday" ? <p>Wednesday</p> : null }
-                { car && car.thursday === "thursday" ? <p>Thursday</p> : null }
-                { car && car.friday === "friday" ? <p>Friday</p> : null }
-            </ul>
         </div>
+            <ul className="list-group list-group-flush">
+                    <p className="card-header">Days:</p>
+                    { car && car.monday === "monday" ? <li className="list-group-item">Monday</li> : null }
+                    { car && car.tuesday === "tuesday" ? <li className="list-group-item">Tuesday</li> : null }
+                    { car && car.wednesday === "wednesday" ? <li className="list-group-item">Wednesday</li> : null }
+                    { car && car.thursday === "thursday" ? <li className="list-group-item">Thursday</li> : null }
+                    { car && car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
+            </ul>
+        
         <h3>{statusMessage}</h3>
-        <button onClick={handleAcceptRequest}>Accept Request</button>
-        <button onClick={handleRejectRequest}>Reject Request</button>
+        <button className="btn btn-primary" onClick={handleAcceptRequest}>Accept Request</button>
+        <button className="btn btn-outline-primary" onClick={handleRejectRequest}>Reject Request</button>
     </div>
   )
 }

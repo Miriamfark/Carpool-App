@@ -30,6 +30,7 @@ function App() {
     <div>
       <NavBar /> 
       <Routes>
+        <Route path="/" element={<UserInfo />} />
         <Route path="/cars" element={<Cars />} />
         <Route path="/search?/:searchTerm" element={<Cars/>} />
         <Route path="/kids" element={<KidsList />}>
