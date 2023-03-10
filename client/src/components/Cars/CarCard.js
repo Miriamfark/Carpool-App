@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch } from 'react-redux';
 import { fetchCars } from '../../redux/carsSlice';
-import { Card, CardActions, CardContent, Typography, Button } from '@mui/material';
 
 
 const CarCard = ({ car, kids }) => {
@@ -50,46 +49,37 @@ const CarCard = ({ car, kids }) => {
     }
 
     const mappedKids = kids && kids.map((kid) => {
-        return  <Button key={kid.id} onClick={() => addKidToCar(kid, car.id)}>Add {kid.name}</Button>   
+        return  <button className="btn btn-outline-primary btn-sm" key={kid.id} onClick={() => addKidToCar(kid, car.id)}>Add {kid.name}</button>   
        })
        
        const mappedCarKids = car.kids.map((kid) => {
            if(kids && kids.find(k => k.id === kid.id)) {
-           return <Button key={kid.id} onClick={() => removeKidFromCar(kid, car.id)}>Remove {kid.name}</Button> 
+           return <button className="btn btn-outline-primary btn-sm" key={kid.id} onClick={() => removeKidFromCar(kid, car.id)}>Remove {kid.name}</button> 
            }
         })
 
   return (
-    <Card sx={{ minWidth: 275 }} key={car.id}>
-                    <CardContent>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Driver: {car.user && car.user.name}
-                        </Typography>
-                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-                        Seats Available: {car.seats_available}
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        School: {car.school}
-                        </Typography>
-                        <Typography sx={{ mb: 1.5 }} color="text.secondary">
-                        Time: {car.dismissal_time}
-                        </Typography>
-                        <Typography variant="body2">
-                        Kids in Carpool: {car.kids && car.kids.map((kid, index) => <span key={index}>{kid.name} </span>)}
-                        </Typography>
-                        <Typography variant="body2">
-                        <h5>Days:</h5>
-                            { car.monday === "monday" ? <span>Monday</span> : null }
-                            { car.tuesday === "tuesday" ? <span>Tuesday</span> : null }
-                            { car.wednesday === "wednesday" ? <span>Wednesday</span> : null }
-                            { car.thursday === "thursday" ? <span>Thursday</span> : null }
-                            { car.friday === "friday" ? <span>Friday</span> : null }              </Typography>
-                    </CardContent>
-                    <CardActions>
-                        <Button size="small">{mappedKids}</Button>
-                        <Button size="small">{mappedCarKids}</Button>
-                    </CardActions> 
-                </Card>
+    <div key={car.id} className="card" style={{ minWidth: 275 }}>
+           <div className="card-body">
+                <p>Driver: {car.user && car.user.name}</p>
+                <p>School: {car.school}</p>
+                <p>Seats: {car.seats_available}</p>
+                <p>Time: {car.dismissal_time}</p>
+                <p>Kids in Carpool: {car.kids && car.kids.map((kid, index) => <span key={index}>{kid.name} </span>)}</p>
+            </div>
+            <ul className="list-group list-group-flush">
+                <p className="card-header">Days</p>
+                    { car.monday === "monday" ? <li className="list-group-item">Monday</li> : null }
+                    { car.tuesday === "tuesday" ? <li className="list-group-item">Tuesday</li> : null }
+                    { car.wednesday === "wednesday" ? <li className="list-group-item">Wednesday</li> : null }
+                    { car.thursday === "thursday" ? <li className="list-group-item">Thursday</li> : null }
+                    { car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
+            </ul>
+            <div>
+                <span>{mappedKids}</span>
+                <span>{mappedCarKids}</span>
+            </div> 
+   </div>
   )
 }
 

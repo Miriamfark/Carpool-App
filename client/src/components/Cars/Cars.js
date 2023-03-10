@@ -5,7 +5,6 @@ import CarCard from './CarCard';
 import NewCarForm from './NewCarForm';
 import SearchBar from '../Search/SearchBar';
 import { Box, Button, Grid } from '@mui/material';
-import { styled } from '@mui/material/styles';
 
 const Cars = () => {
 
@@ -36,10 +35,13 @@ const Cars = () => {
     <Box sx={{ flexGrow: 1 }}>
         
 
-            <div>
-            <SearchBar />    
+        <div>
+            <SearchBar /> 
         </div>
-        <Button onClick={toggleCarForm}>Add New Car</Button>
+        <div className="d-grid gap-2 col-6 mx-auto mb-5">
+            <button className="align-center btn btn-primary" onClick={toggleCarForm}>Add New Car</button>   
+        </div>
+        
         { showForm ? <NewCarForm showForm={showForm} setShowForm={setShowForm} /> : null }
         <Grid 
         container 

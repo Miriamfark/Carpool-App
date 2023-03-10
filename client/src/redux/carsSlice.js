@@ -90,6 +90,7 @@ export const carsSlice = createSlice({
               state.cars = payload.cars
             state.isFetching = false;
             state.isSuccess = true;
+            state.errorMessage = false
             return state;  
             } else {
                 state.cars = payload.cars
