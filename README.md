@@ -4,8 +4,6 @@ Finally! a tool to schedule carpool for your kids in one central, easy place.
 
 ## Project Purepose
 
-The Charity App is a tool for philanthropists to track their charitable donations, as well as find new charities to partner with. A user can log in, look through their past recipients and their past donations. Users can also make new donations, as well as edit and delete their donation history. Finally, users can browse through recipients to get inspired for their next donation.
-
 The Carpool App is a tool for parents to have platform for connecting with other parents who are driving their kids to the same school at the same time. A user can sign up for an account, add their child(ren) to their profile, let other parents know when they are available to drive carpool, and add their kid(s) to another carpool.
 
 ## Features
