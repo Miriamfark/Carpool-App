@@ -9,6 +9,7 @@ import {
   }
   from 'mdb-react-ui-kit';
 import NamePasswordInput from './NamePasswordInput';
+import Errors from './Errors';
 
 function SignupForm() {
 
@@ -77,7 +78,7 @@ function SignupForm() {
                     size='lg'
                 >Sign Up</MDBBtn>
         </form>
-        { errors ? <h5 class="text-danger">{errors}</h5> : null }
+        <Errors errors={errors} />
     </div>
   )
 }

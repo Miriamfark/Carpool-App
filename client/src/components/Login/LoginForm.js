@@ -2,13 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/usersSlice';
-import {
-    MDBBtn,
-    MDBIcon,
-    MDBInput
-  }
-  from 'mdb-react-ui-kit';
+import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import NamePasswordInput from './NamePasswordInput';
+import Errors from './Errors';
 
 const LoginForm = () => {
 
@@ -61,7 +57,7 @@ const LoginForm = () => {
             size='lg'
         >Log in</MDBBtn>
         </form>
-        { errors ? <h5 class="text-danger">{errors}</h5> : null }
+        <Errors errors={errors} />
     </div>
   )
 }
