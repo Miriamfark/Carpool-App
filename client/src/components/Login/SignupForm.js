@@ -8,6 +8,7 @@ import {
     MDBInput
   }
   from 'mdb-react-ui-kit';
+import NamePasswordInput from './NamePasswordInput';
 
 function SignupForm() {
 
@@ -49,22 +50,12 @@ function SignupForm() {
     <div className='d-flex flex-column justify-content-center h-custom-2 w-75 pt-4'>
         <p className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}><MDBIcon fas icon="crow fa-3x me-3" style={{ color: '#709085' }}/>Sign Up</p>
         <form onSubmit={handleSubmit}>
-                <MDBInput 
-                    wrapperClass='mb-4 mx-5 w-100' 
-                    size="lg"
-                    label='User Name' 
-                    type='text'  
-                    value={name}              
-                    onChange={(e) => setName(e.target.value)}
-                />
-                <MDBInput 
-                    wrapperClass='mb-4 mx-5 w-100' 
-                    size="lg"            
-                    label='Password' 
-                    value={password} 
-                    type='password'
-                    onChange={(e) => setPassword(e.target.value)}
-                />
+               <NamePasswordInput 
+               name={name}
+               setName={setName}
+               password={password}
+               setPassword={setPassword}
+               />
                 <MDBInput 
                     wrapperClass='mb-4 mx-5 w-100' 
                     size="lg"            
