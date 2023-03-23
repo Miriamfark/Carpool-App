@@ -4,7 +4,7 @@ import { fetchCars } from '../../redux/carsSlice';
 import CarCard from './CarCard';
 import NewCarForm from './NewCarForm';
 import SearchBar from '../Search/SearchBar';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Grid } from '@mui/material';
 
 const Cars = () => {
 
@@ -21,8 +21,11 @@ const Cars = () => {
    
     const mappedCars = cars.cars && cars.cars.map((car) => {
         return(
-        <Grid item style={{display: 'flex'}}>
-            <CarCard car={car} kids={kids}/>
+        <Grid key={car.id} item style={{display: 'flex'}}>
+            <CarCard 
+            car={car} 
+            kids={kids}
+            />
         </Grid>  
         )
     })

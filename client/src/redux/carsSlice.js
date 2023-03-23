@@ -47,7 +47,7 @@ export const updateCar = createAsyncThunk('cars/updateCar', async (updatedCar) =
 } )
 
 export const deleteCar = createAsyncThunk('cars/deleteCar', async (carId) => {
-    const car = await fetch(`cars/${carId}`, { method: "DELETE" })
+    await fetch(`cars/${carId}`, { method: "DELETE" })
     return carId
 })
 
@@ -68,7 +68,10 @@ export const carsSlice = createSlice({
             state.isFetching = false;
             state.errorMessage = false
             return state;
-    }
+    },
+        // rejectKid: (state, { payload }) => {
+        //     console.log(payload.payload)
+        // }
     },
     extraReducers: {
         [fetchCars.fulfilled]: (state, { payload }) => {
@@ -138,4 +141,4 @@ export const carsSlice = createSlice({
 })
 
   
-  export const { clearState, addKidToCarpool } = carsSlice.actions;
+  export const { clearState, addKidToCarpool, rejectKid } = carsSlice.actions;

@@ -41,15 +41,6 @@ const EditCar = ({ cars }) => {
         navigate('/my_cars')
     }
 
-    // function defaultCheck() {
-    //     const checked1 =  car && car.monday === "monday" ? document.getElementById("Monday").checked = true : null 
-    //     const checked2 =  car && car.tuesday === "tuesday" ? document.getElementById("Tuesday").checked = true : null 
-    //     const checked3 =  car && car.wednesday === "wednesday" ? document.getElementById("Wednesday").checked = true : null 
-    //     const checked4 =  car && car.thursday === "thursday" ? document.getElementById("Thursday").checked = true : null 
-    //     const checked5 =  car && car.friday === "friday" ? document.getElementById("Friday").checked = true : null 
-    // }
-    // defaultCheck()
-
   return (
     <div className="mt-5 mb-3 pe-5">
         <form onSubmit={handleUpdateCar}>

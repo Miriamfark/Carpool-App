@@ -53,7 +53,6 @@ function SignupForm() {
                     wrapperClass='mb-4 mx-5 w-100' 
                     size="lg"
                     label='User Name' 
-                    id='form1' 
                     type='text'  
                     value={name}              
                     onChange={(e) => setName(e.target.value)}
@@ -62,7 +61,6 @@ function SignupForm() {
                     wrapperClass='mb-4 mx-5 w-100' 
                     size="lg"            
                     label='Password' 
-                    id='form2'
                     value={password} 
                     type='password'
                     onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +69,6 @@ function SignupForm() {
                     wrapperClass='mb-4 mx-5 w-100' 
                     size="lg"            
                     label='Confirm Password' 
-                    id='form2'
                     value={passwordConfirmation} 
                     type='password'
                     onChange={(e) => setPasswordConfirmation(e.target.value)}
@@ -80,7 +77,6 @@ function SignupForm() {
                     wrapperClass='mb-4 mx-5 w-100' 
                     size="lg"            
                     label='Email Address' 
-                    id='form2'
                     value={email} 
                     type='email'
                     onChange={(e) => setEmail(e.target.value)}

@@ -36,7 +36,7 @@ const RequestPending = () => {
         })
         .then((r) => {
             if(r.ok) {
-                r.json().then((data) => {
+                r.json().then(() => {
                     setStatusMessage(`${kid && kid.name} has joined your carpool!`)
                 })
             } else {
@@ -46,12 +46,13 @@ const RequestPending = () => {
     }
 
     function handleRejectRequest() {
+        console.log(id.id)
         fetch(`/carpools/${id.id}`, {
             method: "DELETE", 
         })
         .then((r) => {
             if(r.ok) {
-                setStatusMessage(`You have rejected ${kid && kid.name}'s request!`) 
+                setStatusMessage(`You have rejected ${kid && kid.name}'s request!`)
             } 
         })
     }

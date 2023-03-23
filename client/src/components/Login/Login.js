@@ -43,7 +43,7 @@ const Login = () => {
 
             <MDBCol sm='6' className='d-none d-sm-block px-0'>
                 <img src="https://www.care.com/c/wp-content/uploads/sites/2/2021/04/LaurenGarcia-201909252109059744-1620x1080.jpg.optimal.jpg"
-                alt="Login image" className="w-100 vh-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
+                alt="kids in a car" className="w-100 vh-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
             </MDBCol>
         </MDBRow>
     </MDBContainer>

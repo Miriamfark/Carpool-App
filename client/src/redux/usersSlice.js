@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const logoutUser = createAsyncThunk('user/logout', async () => {
-    const userLogout = await fetch(`/logout`, {
+    await fetch(`/logout`, {
         method: 'DELETE',
         headers: {
             "Content-Type": "application/json"
@@ -36,7 +36,7 @@ export const postKid = createAsyncThunk('user/addKid', async (kid) => {
     })
 
 export const removeKid = createAsyncThunk('user/removeKid', async (id) => {
-    const kid = await fetch(`/kids/${id}`, { method: "DELETE" })
+    await fetch(`/kids/${id}`, { method: "DELETE" })
     return id;
 })
 
@@ -97,7 +97,6 @@ export const usersSlice = createSlice({
             return state
         },
         showUserCar: (state, { payload }) => {
-            console.log(payload)
             state.user = {...state.user, cars: [...state.user.cars, payload]}
             return state
         }
@@ -135,7 +134,6 @@ export const usersSlice = createSlice({
             return state
         }},
     [removeKid.fulfilled]: (state, { payload }) => {
-        console.log(payload)
         const filteredKids = state.user.kids.filter((kid) => kid.id !== payload)
         state.user.kids = filteredKids
         state.isFetching = false;

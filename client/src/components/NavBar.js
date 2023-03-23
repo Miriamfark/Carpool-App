@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { logoutUser } from '../redux/usersSlice';
 import { useSelector } from 'react-redux';
@@ -8,7 +8,6 @@ import {
   MDBNavbar,
   MDBNavbarBrand,
   MDBNavbarNav,
-  MDBNavbarItem,
   MDBNavbarLink,
   MDBBtn
 } from 'mdb-react-ui-kit';

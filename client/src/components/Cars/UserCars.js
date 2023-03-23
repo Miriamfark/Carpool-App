@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { Link, Outlet } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import NewCarForm from './NewCarForm'
-import { deleteCar } from '../../redux/carsSlice'
-import { removeCar, fetchUser } from '../../redux/usersSlice'
+import { fetchUser } from '../../redux/usersSlice'
 import { Grid, Box } from '@mui/material';
 import UserCarCard from './UserCarCard'
 
