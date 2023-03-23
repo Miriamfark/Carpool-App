@@ -1,7 +1,7 @@
 import React from 'react'
-import { Card, CardActions, CardContent, Typography, Button } from '@mui/material';
+import { Card, CardContent, Typography } from '@mui/material';
+import KidCardActions from './KidCardActions';
 
-import { Link } from 'react-router-dom'
 
 const KidCard = ({ kid, onDelete }) => {
   return (
@@ -17,10 +17,7 @@ const KidCard = ({ kid, onDelete }) => {
             Dismissal Time: {kid.dismissal_time}
             </Typography>
         </CardContent>
-        <CardActions>
-            <Link to={`/kids/${kid.id}`} className="btn btn-primary">Edit</Link>
-            <Button size="small" onClick={() => onDelete(kid.id)}>Remove</Button>
-         </CardActions> 
+       {/* <KidCardActions kid={kid} onDelete={onDelete} /> */}
     </Card>
   )
 }

@@ -1,19 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
+import KidCard from './Kids/KidCard';
 
 const UserInfo = () => {
 
     const user = useSelector((state) => state.users.user)
-    const kids = useSelector((state) => state.users.user.kids)
-    const cars = useSelector((state) => state.users.user.cars)
+    const kids = user.kids
+    const cars = user.cars
 
     const navigate = useNavigate()
 
     const userKids = kids && kids.map((kid) => {
-        return <p className="card" key={kid.id}>
-            {kid.name}
-            </p>
+        return <KidCard kid={kid} />
       })
     
       const userCars = cars && cars.map((car) => {

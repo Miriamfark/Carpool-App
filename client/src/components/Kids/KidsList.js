@@ -5,6 +5,7 @@ import { removeKid } from '../../redux/usersSlice';
 import NewKidForm from './NewKidForm';
 import KidCard from './KidCard';
 import { Grid, Box } from '@mui/material';
+import KidCardActions from './KidCardActions';
 
 const KidsList = () => {
 
@@ -33,8 +34,8 @@ const KidsList = () => {
                 <KidCard 
                     key={kid.id}
                     kid={kid}
-                    onDelete={handleDeleteKid}
                 />
+                <KidCardActions kid={kid} onDelete={handleDeleteKid} />
             </Grid> 
         )
     })

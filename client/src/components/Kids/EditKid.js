@@ -35,7 +35,7 @@ const EditKid = ({ kids }) => {
                  <input
                  className="form-control"
                  type="text"
-                 defaultValue={kid.name}
+                 defaultValue={kid && kid.name}
                  onChange={(e)=>setName(e.target.value)}
                  ></input>
              </div>
@@ -44,7 +44,7 @@ const EditKid = ({ kids }) => {
                  <input
                  className="form-control"
                  type="text"
-                 defaultValue={kid.school}
+                 defaultValue={kid && kid.school}
                  onChange={(e) => setSchool(e.target.value)}
                  ></input>
              </div>
@@ -53,7 +53,7 @@ const EditKid = ({ kids }) => {
                  <input
                  className="form-control"
                  type="time"
-                 defaultValue={kid.dismissal_time}
+                 defaultValue={kid && kid.dismissal_time}
                  onChange={(e)=> setDismissal(e.target.value)}
                  ></input>
              </div>

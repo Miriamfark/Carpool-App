@@ -10,6 +10,7 @@ const NewKidForm = ({
     setName,
     dismissal,
     setDismissal,
+    setShowForm
 }) => {
 
     const dispatch = useDispatch()
@@ -31,6 +32,7 @@ const NewKidForm = ({
         setName("")
         setSchool("")
         setDismissal("")
+        setShowForm(false)
     }
 
   return (
@@ -63,7 +65,7 @@ const NewKidForm = ({
                 value={dismissal}
                 onChange={(e)=> setDismissal(e.target.value)}
                 ></input>
-            </div>
+            </div> 
             <input className="btn btn-primary mt-3" type="submit"></input>
         </form>
     </div>
