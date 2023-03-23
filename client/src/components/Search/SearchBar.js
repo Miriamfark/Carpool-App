@@ -25,7 +25,7 @@ const SearchBar = () => {
         e.preventDefault()
         navigate({
             pathname: `/search`,
-            search: `/?${createSearchParams(params)}`,
+            search: `/${createSearchParams(params)}`,
           });
           dispatch(filterCars(params))
           setSchool("")
