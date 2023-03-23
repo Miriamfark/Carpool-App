@@ -9,7 +9,7 @@ import {
   }
   from 'mdb-react-ui-kit';
 import NamePasswordInput from './NamePasswordInput';
-import Errors from './Errors';
+import Errors from '../Errors';
 
 function SignupForm() {
 

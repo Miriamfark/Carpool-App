@@ -1,6 +1,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { postKid } from '../../redux/usersSlice';
+import Errors from '../Errors';
 
 const NewKidForm = ({
     school,
@@ -9,7 +10,6 @@ const NewKidForm = ({
     setName,
     dismissal,
     setDismissal,
-    setShowForm
 }) => {
 
     const dispatch = useDispatch()
@@ -36,8 +36,7 @@ const NewKidForm = ({
   return (
     <div className="mt-5 mb-3 pe-5">
         <form onSubmit={handleNewKidSubmit}>
-        { errors ? <h5 className="text-danger">{mappedErrors}</h5> : null}
-
+            <Errors errors={mappedErrors} />
             <div>
                 <label>Kid's Name:</label>
                 <input

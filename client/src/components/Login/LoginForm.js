@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '../../redux/usersSlice';
 import { MDBBtn, MDBIcon } from 'mdb-react-ui-kit';
 import NamePasswordInput from './NamePasswordInput';
-import Errors from './Errors';
+import Errors from '../Errors';
 
 const LoginForm = () => {
 
