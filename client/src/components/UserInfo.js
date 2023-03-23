@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
-import KidCard from './Kids/KidCard';
+import KidCardContent from './Kids/KidCardContent';
 
 const UserInfo = () => {
 
@@ -12,7 +12,7 @@ const UserInfo = () => {
     const navigate = useNavigate()
 
     const userKids = kids && kids.map((kid) => {
-        return <KidCard kid={kid} />
+        return <KidCardContent kid={kid} />
       })
     
       const userCars = cars && cars.map((car) => {
