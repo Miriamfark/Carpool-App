@@ -28,10 +28,10 @@ const UserInfo = () => {
             friday: car.friday
         }
 
-        const mappedDays = Object.entries(days).map((day) => {
+        const mappedDays = Object.entries(days).map((day, index) => {
             if(day[0] === day[1]) {
                 return (
-                    <CardContent>
+                    <CardContent key={index}>
                         <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
                         {`${day[0].charAt(0).toUpperCase() + day[0].slice(1)}: `}
                         </Typography>

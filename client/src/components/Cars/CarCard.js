@@ -67,7 +67,7 @@ const CarCard = ({ car, kids }) => {
                 <p>School: {car.school}</p>
                 <p>Seats: {car.seats_available}</p>
                 <p>Time: {car.dismissal_time}</p>
-                <p>Kids in Carpool: {car.kids && car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}</p>
+                <p>Kids in Carpool: {car.kids && car.kids.map((kid) => <span key={kid.id}>{kid.name}, </span>)}</p>
             </div>
             <ul className="list-group list-group-flush">
                 <p className="card-header">Days</p>

@@ -22,6 +22,21 @@ const RequestPending = () => {
 
    const [statusMessage, setStatusMessage] = useState("")
 
+   const days = {
+    monday: car && car.monday,
+    tuesday: car && car.tuesday,
+    wednesday: car && car.wednesday,
+    thursday: car && car.thursday,
+    friday: car && car.friday
+}
+
+const mappedDays = Object.entries(days).map((day) => {
+    if(day[0] === day[1]) {
+        return <li className="list-group-item">
+                    {day[0].charAt(0).toUpperCase() + day[0].slice(1)}
+                </li>
+    }
+})
 
     function handleAcceptRequest() {
         const updatedCarpool = {
@@ -67,11 +82,7 @@ const RequestPending = () => {
         </div>
             <ul className="list-group list-group-flush">
                     <p className="card-header">Days:</p>
-                    { car && car.monday === "monday" ? <li className="list-group-item">Monday</li> : null }
-                    { car && car.tuesday === "tuesday" ? <li className="list-group-item">Tuesday</li> : null }
-                    { car && car.wednesday === "wednesday" ? <li className="list-group-item">Wednesday</li> : null }
-                    { car && car.thursday === "thursday" ? <li className="list-group-item">Thursday</li> : null }
-                    { car && car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
+                    {mappedDays}
             </ul>
         
         <h3>{statusMessage}</h3>
