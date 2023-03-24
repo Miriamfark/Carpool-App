@@ -2,6 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import KidCardContent from './Kids/KidCardContent';
+import { CardContent, Typography } from '@mui/material';
+
 
 const UserInfo = () => {
 
@@ -12,42 +14,38 @@ const UserInfo = () => {
     const navigate = useNavigate()
 
     const userKids = kids && kids.map((kid) => {
-        return <KidCardContent kid={kid} />
+        return <KidCardContent key={kid.id} kid={kid} />
       })
     
+  
       const userCars = cars && cars.map((car) => {
-        return <div className="card" key={car.id}>
-            { car.monday === "monday" ? (
-                <div>
-                    <span>Monday: {car.dismissal_time} from {car.school} - </span>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </div>
-            ) : null }
-            { car.tuesday === "tuesday" ? (
-                <div>
-                    <span>Tuesday: {car.dismissal_time} from {car.school} - </span>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </div>
-            ) : null }            
-            { car.wednesday === "wednesday" ? (
-                <div>
-                    <span>Wednesday: {car.dismissal_time} from {car.school} - </span>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </div>
-            ) : null }            
-            { car.thursday === "thursday" ? (
-                <div>
-                    <span>Thursday: {car.dismissal_time} from {car.school} - </span>
-                    {car.kids.map((kid) => <span key={kid.id}>with {kid.name} </span>)}
-                </div>
-            ) : null }            
-            { car.friday === "friday" ? (
-                <div>
-                    <span>Friday: {car.dismissal_time} from {car.school} - </span>
-                    {car.kids.map((kid) => <span key={kid.id}>{kid.name} </span>)}
-                </div>
-            ) : null }            
-            </div>
+
+          const days = {
+            monday: car.monday,
+            tuesday: car.tuesday,
+            wednesday: car.wednesday,
+            thursday: car.thursday,
+            friday: car.friday
+        }
+
+        const mappedDays = Object.entries(days).map((day) => {
+            if(day[0] === day[1]) {
+                return (
+                    <CardContent>
+                        <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
+                        {`${day[0].charAt(0).toUpperCase() + day[0].slice(1)}: `}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {`${car.dismissal_time} from ${car.school} -`}
+                        </Typography>
+                        <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                        {car.kids.map((kid) => <span key={kid.id}>{kid.name}, </span>)}                        
+                        </Typography>
+                    </CardContent> 
+                )
+            }
+        })
+        return mappedDays
       })
 
   return (

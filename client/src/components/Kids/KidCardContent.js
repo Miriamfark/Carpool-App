@@ -4,7 +4,7 @@ import { CardContent, Typography } from '@mui/material';
 
 const KidCardContent = ({ kid }) => {
   return (
-    <div>
+    <div key={kid.id}> 
          <CardContent>
             <Typography sx={{ fontSize: 18 }} color="text.primary" gutterBottom>
             {kid.name}
