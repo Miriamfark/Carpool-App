@@ -7,6 +7,7 @@ class KidAddedMailer < ApplicationMailer
 
   def carpool_request(carpool, car, kid)
     @kid = kid.name
+    @address = kid.address
     @car = car
     @url = "http://localhost:4000/request_pending/#{carpool.id}"
     mail(to: @car.user.email, subject: "#{@kid} Requested to Join Your Carpool" )
