@@ -12,6 +12,7 @@ const EditKid = ({ kids }) => {
     const kid = kids && kids.filter((kid) => kid.id == id.kidId)[0]
 
     const [name, setName] = useState(kid && kid.name)
+    const [address, setAddress] = useState(kid && kid.address)
     const [school, setSchool] = useState(kid && kid.school)
     const [dismissal, setDismissal] = useState(kid && kid.dismissal_time)
 
@@ -20,6 +21,7 @@ const EditKid = ({ kids }) => {
         const updatedKid = {
             id: id.kidId,
             name,
+            address,
             school,
             dismissal_time: dismissal
         }
@@ -37,6 +39,15 @@ const EditKid = ({ kids }) => {
                  type="text"
                  defaultValue={kid && kid.name}
                  onChange={(e)=>setName(e.target.value)}
+                 ></input>
+             </div>
+             <div>
+                 <label>Address:</label>
+                 <input
+                 className="form-control"
+                 type="text"
+                 defaultValue={kid && kid.address}
+                 onChange={(e) => setAddress(e.target.value)}
                  ></input>
              </div>
              <div>

@@ -143,7 +143,7 @@ export const usersSlice = createSlice({
         },
     [updateKid.fulfilled]: (state, { payload }) => {
         let patchedKid = state.user.kids.filter((kid) => kid.id == payload.id)[0]
-        patchedKid = {...patchedKid, name: payload.name, school: payload.school, dimissal_time: payload.dismissal_time}
+        patchedKid = {...patchedKid, name: payload.name, school: payload.school, dimissal_time: payload.dismissal_time, address: payload.address}
         state.user = {...state.user, kids: state.user.kids.map((k) => {
             return k.id !== patchedKid.id ? k : patchedKid
         })}
