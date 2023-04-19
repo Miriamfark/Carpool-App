@@ -12,7 +12,7 @@ const RequestPending = () => {
         .then((r) => r.json())
         .then((data) => {
             setCarpool(data)
-            setStatusMessage(`${data.kid && data.kid.name} would like to join your carpool.`)
+            setStatusMessage(`${data.kid && data.kid.name} would like to join your carpool. Address: ${data.kid.address}`)
 
         })
     }, [id.id])
@@ -52,7 +52,7 @@ const mappedDays = Object.entries(days).map((day) => {
         .then((r) => {
             if(r.ok) {
                 r.json().then(() => {
-                    setStatusMessage(`${kid && kid.name} has joined your carpool!`)
+                    setStatusMessage(`${kid && kid.name} has joined your carpool! ${kid.address} has been added as an additional stop on your route.`)
                 })
             } else {
                 r.json().then((data) => console.log(data))
