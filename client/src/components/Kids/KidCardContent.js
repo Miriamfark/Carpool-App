@@ -10,6 +10,9 @@ const KidCardContent = ({ kid }) => {
             {kid.name}
             </Typography>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+            Address: {kid.address} 
+            </Typography>
+            <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
             School: {kid.school} 
             </Typography>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>

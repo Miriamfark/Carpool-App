@@ -10,6 +10,8 @@ const NewKidForm = ({
     setName,
     dismissal,
     setDismissal,
+    address,
+    setAddress,
     setShowForm
 }) => {
 
@@ -25,11 +27,13 @@ const NewKidForm = ({
         e.preventDefault()
         const kid = {
             name,
+            address,
             school,
             dismissal_time: dismissal
         }
         dispatch(postKid(kid))
         setName("")
+        setAddress("")
         setSchool("")
         setDismissal("")
         setShowForm(false)
@@ -46,6 +50,15 @@ const NewKidForm = ({
                 type="text"
                 value={name}
                 onChange={(e)=>setName(e.target.value)}
+                ></input>
+            </div>
+            <div>
+                <label>Address:</label>
+                <input
+                className="form-control"
+                type="text"
+                value={address}
+                onChange={(e)=>setAddress(e.target.value)}
                 ></input>
             </div>
             <div>

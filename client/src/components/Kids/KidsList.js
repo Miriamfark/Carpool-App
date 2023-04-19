@@ -16,6 +16,7 @@ const KidsList = () => {
     const [name, setName] = useState("")
     const [school, setSchool] = useState("")
     const [dismissal, setDismissal] = useState("")
+    const [address, setAddress] = useState("")
 
     function handleDeleteKid(id) {
         dispatch(removeKid(id))
@@ -63,6 +64,8 @@ const KidsList = () => {
         dismissal={dismissal}
         setDismissal={setDismissal}
         setShowForm={setShowForm}
+        address={address}
+        setAddress={setAddress}
         /> : null }
     </div>
   )

@@ -36,7 +36,7 @@ class KidsController < ApplicationController
     private 
 
     def kid_params
-        params.permit(:name, :school, :dismissal_time) 
+        params.permit(:name, :school, :dismissal_time, :address) 
     end
 
     def find_user
