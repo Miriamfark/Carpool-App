@@ -43,7 +43,6 @@ const UserCars = () => {
           >
             {mappedCars}
         </Grid>
-        <Outlet /> 
       </Box>
       
       <button className="btn btn-secondary" onClick={toggleCarForm}>Add New Car</button>

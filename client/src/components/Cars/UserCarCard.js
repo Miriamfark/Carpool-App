@@ -29,7 +29,7 @@ const UserCarCard = ({ car }) => {
                     { car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
                 </ul>
                 <div>
-                  <button onClick={(car)=>navigate(`/my_cars/${car.id}/route`)}>See Route</button>
+                  <Link className="btn btn-primary" to={`${car.id}/route`}>See Route</Link>
                   <Link className="btn btn-primary" to={`${car.id}/edit`}>Edit</Link>
             <button 
               className="btn btn-outline-primary"
