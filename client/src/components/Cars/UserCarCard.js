@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCar } from '../../redux/carsSlice'
 import { removeCar } from '../../redux/usersSlice'
@@ -7,6 +7,8 @@ import { removeCar } from '../../redux/usersSlice'
 const UserCarCard = ({ car }) => {
 
     const dispatch = useDispatch()
+
+    const navigate = useNavigate()
 
   return (
         <div key={car.id} className="card" style={{ minWidth: 275 }}>
@@ -27,7 +29,8 @@ const UserCarCard = ({ car }) => {
                     { car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
                 </ul>
                 <div>
-                  <Link className="btn btn-primary" to={`${car.id}`}>Edit</Link>
+                  <button onClick={()=>navigate(`/me/${car.id}/route`)}>See Route</button>
+                  <Link className="btn btn-primary" to={`${car.id}/edit`}>Edit</Link>
             <button 
               className="btn btn-outline-primary"
               onClick={() =>{

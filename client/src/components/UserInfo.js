@@ -2,7 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import KidCardContent from './Kids/KidCardContent';
-import { CardContent, Typography } from '@mui/material';
+import { Button, CardContent, Typography } from '@mui/material';
+import Route from './Route';
 
 
 const UserInfo = () => {
@@ -12,6 +13,10 @@ const UserInfo = () => {
     const cars = user.cars
 
     const navigate = useNavigate()
+
+    function showRoute(car) {
+        navigate(`${car.id}/route`)
+    }
 
     const userKids = kids && kids.map((kid) => {
         return <KidCardContent key={kid.id} kid={kid} />
@@ -41,6 +46,7 @@ const UserInfo = () => {
                         <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                         {car.kids.map((kid) => <span key={kid.id}>{kid.name}, </span>)}                        
                         </Typography>
+                        <Button onClick={()=> showRoute(car)}>See Route</Button>
                     </CardContent> 
                 )
             }

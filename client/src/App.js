@@ -36,9 +36,11 @@ function App() {
         <Route path="/kids" element={<KidsList />}>
           <Route path=":kidId" element={<EditKid kids={user.kids}/>} />
         </Route>
-        <Route path="/me" element={<UserInfo />} />
+        <Route path="/me" element={<UserInfo />} >         
+          <Route path=":carId/route" element={<Route />} /> 
+        </Route>
         <Route path="/my_cars" element={<UserCars />} >
-          <Route path=":carId" element={<EditCar cars={user.cars} user={user}/>} />
+          <Route path=":carId/edit" element={<EditCar cars={user.cars} user={user}/>} />
         </Route>
         <Route path="/request_pending/:id" element={<RequestPending />} />
       </Routes>
