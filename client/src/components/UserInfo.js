@@ -1,9 +1,9 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate, Link } from 'react-router-dom';
+import { useNavigate, Link, Outlet } from 'react-router-dom';
 import KidCardContent from './Kids/KidCardContent';
 import { Button, CardContent, Typography } from '@mui/material';
-import Route from './Route';
+import Route from './AddressList';
 
 
 const UserInfo = () => {
@@ -15,7 +15,7 @@ const UserInfo = () => {
     const navigate = useNavigate()
 
     function showRoute(car) {
-        navigate(`${car.id}/route`)
+        navigate(`/my_cars/${car.id}/route`)
     }
 
     const userKids = kids && kids.map((kid) => {
@@ -47,6 +47,7 @@ const UserInfo = () => {
                         {car.kids.map((kid) => <span key={kid.id}>{kid.name}, </span>)}                        
                         </Typography>
                         <Button onClick={()=> showRoute(car)}>See Route</Button>
+                        <Outlet />
                     </CardContent> 
                 )
             }

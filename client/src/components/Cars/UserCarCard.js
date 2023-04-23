@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, Outlet } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 import { deleteCar } from '../../redux/carsSlice'
 import { removeCar } from '../../redux/usersSlice'
@@ -29,7 +29,7 @@ const UserCarCard = ({ car }) => {
                     { car.friday === "friday" ? <li className="list-group-item">Friday</li> : null }
                 </ul>
                 <div>
-                  <button onClick={()=>navigate(`/me/${car.id}/route`)}>See Route</button>
+                  <button onClick={(car)=>navigate(`/my_cars/${car.id}/route`)}>See Route</button>
                   <Link className="btn btn-primary" to={`${car.id}/edit`}>Edit</Link>
             <button 
               className="btn btn-outline-primary"
@@ -39,7 +39,7 @@ const UserCarCard = ({ car }) => {
               }}>Remove</button>
                 </div>
             
-            
+            <Outlet />
             </div>
   )
 }

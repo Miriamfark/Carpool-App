@@ -13,6 +13,7 @@ import EditCar from './components/Cars/EditCar';
 import EditKid from './components/Kids/EditKid'
 import KidsList from './components/Kids/KidsList'
 import RequestPending from './components/RequestPending';
+import AddressList from './components/AddressList';
 
 function App() {
 
@@ -36,14 +37,14 @@ function App() {
         <Route path="/kids" element={<KidsList />}>
           <Route path=":kidId" element={<EditKid kids={user.kids}/>} />
         </Route>
-        <Route path="/me" element={<UserInfo />} >         
-          <Route path=":carId/route" element={<Route />} /> 
-        </Route>
+        <Route path="/me" element={<UserInfo />} />         
         <Route path="/my_cars" element={<UserCars />} >
           <Route path=":carId/edit" element={<EditCar cars={user.cars} user={user}/>} />
+          <Route path=":carId/route" element={<AddressList />} />
         </Route>
         <Route path="/request_pending/:id" element={<RequestPending />} />
-      </Routes>
+      </Routes> 
+      
     </div>
   );
 }
