@@ -7,10 +7,10 @@ const AddressList = ({ cars }) => {
   const navigate = useNavigate()
 
   const car = cars && cars.filter((car) => car.id == id.carId)[0]
-  const kids = car.kids
+  const kids = car && car.kids
   const addresses = []
 
-  kids.map((kid)=> {
+  kids && kids.map((kid)=> {
     addresses.push(kid.address)
   })
 
