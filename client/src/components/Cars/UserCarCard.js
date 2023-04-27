@@ -34,6 +34,8 @@ const UserCarCard = ({ car }) => {
             <button 
               className="btn btn-outline-primary"
               onClick={() =>{
+                navigate(`my_cars/${car.id}`)
+                //here is a problem - when accessing the car card from UserInfo, the url messes up on delete
               dispatch(deleteCar(car.id))
               dispatch(removeCar(car.id))
               }}>Remove</button>

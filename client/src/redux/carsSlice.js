@@ -69,9 +69,6 @@ export const carsSlice = createSlice({
             state.errorMessage = false
             return state;
     },
-        // rejectKid: (state, { payload }) => {
-        //     console.log(payload.payload)
-        // }
     },
     extraReducers: {
         [fetchCars.fulfilled]: (state, { payload }) => {
